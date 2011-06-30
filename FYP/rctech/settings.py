@@ -20,6 +20,8 @@ INSTALLED_APPS = (
     'djangotoolbox',
     'autoload',
     'dbindexer',
+    'mediagenerator',
+    'html5',
 
     # djangoappengine should come last, so it can override a few manage.py commands
     'djangoappengine',
@@ -32,6 +34,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'mediagenerator.middleware.MediaMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -46,5 +49,20 @@ TEST_RUNNER = 'djangotoolbox.test.CapturingTestSuiteRunner'
 
 ADMIN_MEDIA_PREFIX = '/media/admin/'
 TEMPLATE_DIRS = (os.path.join(os.path.dirname(__file__), 'templates'),)
+
+MEDIA_DEV_MODE = DEBUG
+DEV_MEDIA_URL = '/devmedia/'
+PRODUCTION_MEDIA_URL = '/media/'
+
+GLOBAL_MEDIA_DIRS = (os.path.join(os.path.dirname(__file__), 'static'),)
+TEMPLATE_DIRS = (os.path.join(os.path.dirname(__file__), 'templates'),)
+MEDIA_BUNDLES = (
+    ('main.css',
+        'style.css',
+    ),
+    ('main.js',
+        'jquery-1.6.1.js',
+    ),
+)
 
 ROOT_URLCONF = 'urls'
