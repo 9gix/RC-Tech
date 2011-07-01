@@ -1,27 +1,5 @@
-{% load media %}
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8" />
-<title>HTML5</title> 
-{% include_media 'main.css' %}
-{% include_media 'main.js' %}
-</head>
-<body>
-	<header>
-		<h1>RC-Tech</h1>
-		<h2>Gotcha!</h2>
-		<h4>HTML5 Rocks!</h4>
-	</header>
-	<div id="container">
-		<nav>
-			<h3>Quick Link</h3>
-			<a href="http://www.facebook.com/yeo.eugene.oey">Facebook</a> 
-			<a href="http://museum-partner.blogspot.com/">Blog</a> 
-			<a href="http://www.github.com/yeo-eugene-oey/museum-partner">Git</a> 
-			<a href="https://plus.google.com/u/0/113393692898490384554">Google</a>
-		</nav>
-		<section>
+{% extends "base.html" %}
+{% block content %}
 			<article>
 				<header>
 					<h1>Technology</h1>
@@ -49,15 +27,8 @@
 				</footer>
 			</article>
 			
-		</section>
-		<aside>
+{% endblock %}
+{% block sidebar %}
 			<h3>Info</h3>
 			<p>Site is under Construction</p>
-		</aside>
-		<footer>
-			<h2>RC-Tech</h2>
-		</footer>
-	</div>
-</body>
-
-</html>
+{% endblock %}

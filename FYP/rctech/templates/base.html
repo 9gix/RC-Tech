@@ -1,3 +1,4 @@
+{% load media %}
 <!DOCTYPE html 
      PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -6,47 +7,54 @@
     xml:lang="{% firstof LANGUAGE_CODE 'en' %}"
     lang="{% firstof LANGUAGE_CODE 'en' %}">
   <head>
-    <title>{% block title %}{% endblock %} - Nonrel-testapp</title>
+  	<meta charset="utf-8" />
+    <title>{% block title %}{% endblock %} - RC-Tech</title>
 
     {% block css %}
+    	{% include_media 'main.css' %}
     {% endblock %}
 
     {% block preload_js %}
+    	{% include_media 'main.js' %}
     {% endblock %}
 
     {% block extra-head %}{% endblock %}
   </head>
 
   <body>
-    <div id="header">
-      <a id="logo" href="/">Nonrel-testapp</a>
+    <header>
+	    <h1>RC-Tech</h1>
+		<h2>Gotcha!</h2>
+		<h4>HTML5 Rocks!</h4>
+    <header>
+    <div id="container">
+		<div id="notification">
+	       	{% block content-header %}
+				{% if error %}<div class="error">{{ error }}</div>{% endif %}
+         		{% if info %}<div class="info">{{ info }}</div>{% endif %}
+  				{% if messages %}
+  					{% for message in messages %}
+             			<div class="info">{{ message }}</div>
+					{% endfor %} 
+				{% endif %} 
+			{% endblock %}
+		</div> 
+		<nav>
+			<h3>Quick Link</h3>
+			<a href="http://www.facebook.com/yeo.eugene.oey">Facebook</a> 
+			<a href="http://museum-partner.blogspot.com/">Blog</a> 
+			<a href="http://www.github.com/yeo-eugene-oey/museum-partner">Git</a> 
+			<a href="https://plus.google.com/u/0/113393692898490384554">Google</a>
+		</nav>	
+		<section>
+			{% block content %}{% endblock %} 
+		</section>
+
+		<aside> {% block sidebar %} {% endblock %} </aside>
+		<footer>
+			<h2>RC-Tech</h2>
+	    </footer>
     </div>
-
-    <div class="columns">
-      <div id="content" class="column">
-        {% block content-header %}
-          {% if error %}<div class="error">{{ error }}</div>{% endif %}
-          {% if info %}<div class="info">{{ info }}</div>{% endif %}
-          {% if messages %}
-            {% for message in messages %}
-              <div class="info">{{ message }}</div>
-            {% endfor %}
-          {% endif %}
-        {% endblock %}
-
-        {% block content %}{% endblock %}
-      </div>
-
-      <div id="sidebar" class="column">
-        {% block sidebar %}
-        {% endblock %}
-      </div>
-    </div>
-
-    <div id="footer">
-      <p>Powered by <a href="http://www.allbuttonspressed.com/projects/django-nonrel">Django-nonrel</a></p>
-    </div>
-
     {% block js %}
     {% endblock %}
   </body>

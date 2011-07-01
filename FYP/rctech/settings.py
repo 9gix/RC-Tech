@@ -8,7 +8,7 @@ import os
 # Activate django-dbindexer for the default database
 DATABASES['native'] = DATABASES['default']
 DATABASES['default'] = {'ENGINE': 'dbindexer', 'TARGET': 'native'}
-AUTOLOAD_SITECONF = 'indexes'
+AUTOLOAD_SITECONF = 'dbindexes'
 
 SECRET_KEY = '=r-$b*8hglm+858&9t043hlm6-&6-3d3vfc4((7yd0dbrakhvi'
 
@@ -22,6 +22,7 @@ INSTALLED_APPS = (
     'dbindexer',
     'mediagenerator',
     'html5',
+    'museumpartner',
 
     # djangoappengine should come last, so it can override a few manage.py commands
     'djangoappengine',
