@@ -86,7 +86,6 @@ function createQRButton(pDiv, lbl, code) {
 			bigCode.style.left = (spaceRight > spaceLeft) ? '0px' : '';
 			bigCode.style.right = (spaceRight > spaceLeft) ? '' : '1px';
 			
-//			var growToHeight = Math.min((spaceBelow > spaceAbove) ? spaceBelow-75 : spaceAbove-60, 350);
 			var growToHeight = Math.min((spaceBelow > spaceAbove) ? spaceBelow-75 : spaceAbove-60, 350);
 			var growToWidth = Math.min((spaceRight > spaceLeft) ? spaceRight-30 : spaceLeft-30, 350);
 			this.growQRCodeToSize = Math.min(growToHeight, growToWidth);

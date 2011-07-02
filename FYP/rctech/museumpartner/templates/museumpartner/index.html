@@ -8,7 +8,7 @@
 </header>
 <p><a href="json_view/{{ exhibit.qrcode }}">Data</a></p>
 <div id="{{ exhibit.qrcode }}" onclick="window.print()"></div>
-<script>createQRButton('{{exhibit.qrcode}}','{{exhibit.qrcode}}', '{{exhibit.qrcode}}');</script>
+<script>createQRButton('{{exhibit.qrcode}}','{{exhibit.name}}', '{{exhibit.qrcode}}');</script>
 </article>
 {% endfor %}
 {% endblock %}
