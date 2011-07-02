@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 
 class Exhibit(models.Model):
-    qrcode = models.CharField(max_length=40)
+    qrcode = models.CharField(max_length=32)
     name = models.CharField(max_length=50)
     date = models.DateTimeField(auto_now_add=True)
     
