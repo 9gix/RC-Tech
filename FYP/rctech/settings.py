@@ -63,6 +63,7 @@ MEDIA_BUNDLES = (
     ),
     ('main.js',
         'jquery-1.6.1.js',
+        'qrcode.js',
     ),
 )
 

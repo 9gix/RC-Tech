@@ -1,10 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% for exhibit in exhibits %}
 <article>
 <header>
-<h1>Hello</h1>
+<h1>{{ exhibit.name }}</h1>
 </header>
-<p>Text here </p>
+<p><a href="json_view/{{ exhibit.qrcode }}">Data</a></p>
+<div id="{{ exhibit.qrcode }}" onclick="window.print()"></div>
+<script>createQRButton('{{exhibit.qrcode}}','{{exhibit.qrcode}}', '{{exhibit.qrcode}}');</script>
 </article>
+{% endfor %}
 {% endblock %}

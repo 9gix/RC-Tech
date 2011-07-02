@@ -10,6 +10,6 @@ urlpatterns = patterns('',
     (r'^html5/', include('html5.urls')),
     (r'^museum/', include('museumpartner.urls')),
     ('^_ah/warmup$', 'djangoappengine.views.warmup'),
-    ('^$', 'django.views.generic.simple.direct_to_template',
-     {'template': 'home.html'}),
+    ('^$', 'django.views.generic.simple.redirect_to',
+     {'url': '/museum'}),
 )
