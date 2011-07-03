@@ -36,12 +36,19 @@ public class DashboardActivity extends Activity {
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		String json = "";
+		String jsdata = "";
 		if (resultCode == RESULT_OK) {
-			json = data.getAction();
+			jsdata = data.getAction();
+			Log.d("JSON",jsdata);
+			
+//			json = new JSONObject(jsdata);
 			
 			// save in history
-			Log.d("JSON",json);
+			
+			
+			// explore exhibit
+			startActivity(new Intent(getApplicationContext(),TabExplorer.class).putExtra("json", jsdata));
+			
 		} else {
 
 		}

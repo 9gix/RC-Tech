@@ -17,6 +17,8 @@
         <activity android:name="DashboardActivity"></activity>
         <activity android:name="SearchActivity"></activity>
         <activity android:name="MuseumRetriever"></activity>
+        <activity android:name="TabExplorer"></activity>
+        <activity android:name="VideoList"></activity>
 
     </application>
 </manifest>
