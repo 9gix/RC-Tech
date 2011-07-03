@@ -12,7 +12,7 @@ class InfoInline(admin.TabularInline):
     model = Info
     
 class ExhibitAdmin(admin.ModelAdmin):
-    fields = ('name',)
+    fields = ('qrcode','name')
     list_display = ('qrcode','name','date')
     inlines = [
         InfoInline, VideoInline, AudioInline,
