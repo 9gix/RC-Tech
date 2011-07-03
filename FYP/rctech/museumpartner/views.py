@@ -12,9 +12,9 @@ def index(request):
 
 def json_view(request,qr):
     exhibit = get_object_or_404(Exhibit,qrcode=qr)
-    audio_objects = Audio.objects.filter(exhibit=exhibit)
-    video_objects = Video.objects.filter(exhibit=exhibit)
-    info_objects = Info.objects.filter(exhibit=exhibit)
+    audio_objects = Audio.objects.filter(exhibit=exhibit).order_by("order","title")
+    video_objects = Video.objects.filter(exhibit=exhibit).order_by("title")
+    info_objects = Info.objects.filter(exhibit=exhibit).order_by("type","title")
     
     audio_list = []
     for audio in audio_objects:
