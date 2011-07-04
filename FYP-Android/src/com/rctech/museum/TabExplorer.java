@@ -35,15 +35,15 @@ public class TabExplorer extends TabActivity {
         
         final TabHost tabHost = getTabHost();
         
-        tabHost.addTab(tabHost.newTabSpec("video")
-                .setIndicator("Video")
-                .setContent(new Intent(this, VideoList.class).putExtra("json", json)));
         tabHost.addTab(tabHost.newTabSpec("audio")
-                .setIndicator("Audio")
-                .setContent(new Intent(this, AudioActivity.class).putExtra("json", json)));
+        		.setIndicator("Audio")
+        		.setContent(new Intent(this, AudioActivity.class).putExtra("json", json)));
         tabHost.addTab(tabHost.newTabSpec("info")
-                .setIndicator("Info")
-                .setContent(new Intent(this, InfoActivity.class).putExtra("json", json)));
+        		.setIndicator("Info")
+        		.setContent(new Intent(this, InfoActivity.class).putExtra("json", json)));
+        tabHost.addTab(tabHost.newTabSpec("video")
+        		.setIndicator("Video")
+        		.setContent(new Intent(this, VideoActivity.class).putExtra("json", json)));
         for (int i = 0; i < 3; i++){
         	tabHost.getTabWidget().getChildAt(i).getLayoutParams().height = 30;
         }

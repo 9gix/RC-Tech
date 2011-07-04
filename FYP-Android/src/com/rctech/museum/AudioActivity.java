@@ -158,14 +158,14 @@ public class AudioActivity extends Activity implements OnPreparedListener, Media
 
 
 		
-		private List getData(JSONArray videos) {
+		private List getData(JSONArray jsonArr) {
 			List<Map> myData = new ArrayList<Map>();
-			for (int i = 0; i < videos.length(); i++){
+			for (int i = 0; i < jsonArr.length(); i++){
 				JSONObject jo = null;
 				String title = null;
 				String link = null;
 				try {
-					 jo = videos.getJSONObject(i);
+					 jo = jsonArr.getJSONObject(i);
 					 title = jo.getString("title");
 					 link = jo.getString("link");
 				} catch (JSONException e) {

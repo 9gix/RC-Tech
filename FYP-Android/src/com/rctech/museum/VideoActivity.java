@@ -10,37 +10,60 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.Button;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class InfoActivity extends Activity {
+public class VideoActivity extends Activity {
+
+
+
+	Intent waitingToPlay;
+
+
 	String[] sMenuExampleNames;
-	WebView wv;
+	private OnClickListener playBtnListener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			startActivity(waitingToPlay);
+		}
+	};
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.info);
-		setWebView();
+		setContentView(R.layout.video);
 		
-		JSONArray jsonArr = getJSONArrayfromIntent("info");
+		JSONArray jsonArr = getJSONArrayfromIntent("video");
 		buildSpinner(jsonArr);
+		
+		Button btnPlay = (Button)findViewById(R.id.btn_play);
+		btnPlay.setOnClickListener(playBtnListener );
 	}
 
-
+	protected void addItem(List<Map> data, String name, Intent intent) {
+		Map<String, Object> temp = new HashMap<String, Object>();
+		temp.put("title", name);
+		temp.put("intent", intent);
+		data.add(temp);
+	}
+	
 	private void buildSpinner(JSONArray jsonArr) {
 		SimpleAdapter adapter = new SimpleAdapter(this, getData(jsonArr),
 				android.R.layout.simple_spinner_item, new String[] { "title" },
 				new int[] { android.R.id.text1 });
 		
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        Spinner spinner = (Spinner)findViewById(R.id.info_spinner);
+        Spinner spinner = (Spinner)findViewById(R.id.video_spinner);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(
                 new OnItemSelectedListener() {
@@ -48,9 +71,9 @@ public class InfoActivity extends Activity {
                             AdapterView<?> parent, View view, int position, long id) {
 //                        showToast("Spinner1: position=" + position + " id=" + id);
                         Map map = (Map) parent.getItemAtPosition(position);
-                        String link = (String)map.get("link");
-                        showToast("Loading URL: " + link);
-                        loadWeb(link);
+                        Intent intent = (Intent)map.get("intent");
+//                        showToast("Loading URL: " + link);
+                        launch(intent);
                     }
 
                     public void onNothingSelected(AdapterView<?> parent) {
@@ -75,21 +98,6 @@ public class InfoActivity extends Activity {
 		}
 		return info;
 	}
-
-
-	private void setWebView() {
-		wv = (WebView)findViewById(R.id.webView);
-		wv.getSettings().setJavaScriptEnabled(true);
-		
-		wv.setWebViewClient(new WebViewClient(){
-			@Override
-			public boolean shouldOverrideUrlLoading(WebView view, String url) {
-				return false;
-			}
-		});
-	}
-
-	
 	private List getData(JSONArray jsonArr) {
 		List<Map> myData = new ArrayList<Map>();
 		for (int i = 0; i < jsonArr.length(); i++){
@@ -103,19 +111,19 @@ public class InfoActivity extends Activity {
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-			addItem(myData, title, link);
+			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+			addItem(myData, title, intent);
 		}
 		return myData;
 	}
-
 	protected void addItem(List<Map> data, String name, String link) {
 		Map<String, Object> temp = new HashMap<String, Object>();
 		temp.put("title", name);
 		temp.put("link", link);
 		data.add(temp);
 	}
-	private void loadWeb(String url){
-		wv.loadUrl(url);
+	private void launch(Intent intent){
+		waitingToPlay = intent;
 	}
     void showToast(CharSequence msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();

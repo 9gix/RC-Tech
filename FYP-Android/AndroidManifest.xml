@@ -18,7 +18,7 @@
         <activity android:name="SearchActivity"></activity>
         <activity android:name="MuseumRetriever"></activity>
         <activity android:name="TabExplorer" android:screenOrientation="portrait"></activity>
-        <activity android:name="VideoList"></activity>
+        <activity android:name="VideoActivity"></activity>
         <activity android:name="AudioActivity"></activity>
         <activity android:name="InfoActivity" ></activity>
 
