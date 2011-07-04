@@ -11,8 +11,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnPreparedListener;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -32,20 +34,7 @@ public class AudioActivity extends Activity implements OnPreparedListener, Media
 	private MediaController mediaController;
 	private Handler handler = new Handler();
 	
-	  public void onPrepared(MediaPlayer mediaPlayer) {
-		    Log.d("MP3", "onPrepared");
-		    mediaController.setMediaPlayer(this);
-		    mediaController.setAnchorView(findViewById(R.id.audio_view));
-//		    mediaController.setAnchorView(getListView());
-
-		    handler.post(new Runnable() {
-		      public void run() {
-		        mediaController.setEnabled(true);
-		        mediaController.show();
-		        Log.d("MP3","SHOWN");
-		      }
-		    });
-		  }
+	  
 
 	//--MediaPlayerControl methods----------------------------------------------------
 	  public void start() {
@@ -128,10 +117,11 @@ public class AudioActivity extends Activity implements OnPreparedListener, Media
 	                            AdapterView<?> parent, View view, int position, long id) {
 //	                        showToast("Spinner1: position=" + position + " id=" + id);
 	                        Map map = (Map) parent.getItemAtPosition(position);
-	                        String link = (String)map.get("link");
+	                        final String link = (String)map.get("link");
 	                        showToast("Loading URL: " + link);
 	                        loadAudio(link);
-	                    }
+	                    } 
+	                    
 
 	                    public void onNothingSelected(AdapterView<?> parent) {
 	                        showToast("Nothing to Load");
@@ -200,6 +190,23 @@ public class AudioActivity extends Activity implements OnPreparedListener, Media
 		      Log.e("MP3", "Could not open file " + link + " for playback.", e);
 		    }
 		}
+		
+
+	    
+	    public void onPrepared(MediaPlayer mediaPlayer) {
+		    Log.d("MP3", "onPrepared");
+		    mediaController.setMediaPlayer(this);
+		    mediaController.setAnchorView(findViewById(R.id.audio_view));
+
+		    handler.post(new Runnable() {
+		      public void run() {
+		        mediaController.setEnabled(true);
+		        mediaController.show();
+		        Log.d("MP3","SHOWN");
+		      }
+		    });
+		  }
+
 	    void showToast(CharSequence msg) {
 	        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
 	    }
