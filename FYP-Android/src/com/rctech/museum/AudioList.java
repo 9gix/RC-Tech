@@ -16,8 +16,13 @@ import android.media.MediaPlayer.OnPreparedListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.MediaController;
 import android.widget.SimpleAdapter;
@@ -47,6 +52,7 @@ public class AudioList extends ListActivity implements OnPreparedListener, Media
 				android.R.layout.simple_list_item_1, new String[] { "title" },
 				new int[] { android.R.id.text1 }));
 		getListView().setTextFilterEnabled(true);
+		registerForContextMenu(getListView());
 	}
 
 	private List getData(JSONArray videos) {
@@ -166,5 +172,31 @@ public class AudioList extends ListActivity implements OnPreparedListener, Media
 	    //the MediaController will hide after 3 seconds - tap the screen to make it appear again
 	    mediaController.show();
 	    return false;
+	  }
+	  
+	  @Override
+	  public void onCreateContextMenu(ContextMenu menu, View v,
+	                                  ContextMenuInfo menuInfo) {
+	    super.onCreateContextMenu(menu, v, menuInfo);
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.context_audio, menu);
+	  }
+	  
+	  @Override
+	  public boolean onContextItemSelected(MenuItem item) {
+	    AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+	    switch (item.getItemId()) {
+	    case R.id.save:
+//	      save(info.id);
+	      return true;
+	    case R.id.share:
+//	      share(info.id);
+	      return true;
+	    case R.id.stop:
+	    	mediaPlayer.stop();
+	    	return true;
+	    default:
+	      return super.onContextItemSelected(item);
+	    }
 	  }
 }
