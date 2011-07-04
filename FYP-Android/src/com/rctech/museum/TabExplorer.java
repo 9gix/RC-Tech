@@ -16,11 +16,9 @@
 
 package com.rctech.museum;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.TabActivity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.widget.TabHost;
 
@@ -42,7 +40,7 @@ public class TabExplorer extends TabActivity {
                 .setContent(new Intent(this, VideoList.class).putExtra("json", json)));
         tabHost.addTab(tabHost.newTabSpec("audio")
                 .setIndicator("Audio")
-                .setContent(new Intent(this, AudioList.class).putExtra("json", json)));
+                .setContent(new Intent(this, AudioActivity.class).putExtra("json", json)));
         tabHost.addTab(tabHost.newTabSpec("info")
                 .setIndicator("Info")
                 .setContent(new Intent(this, InfoActivity.class).putExtra("json", json)));
@@ -50,4 +48,7 @@ public class TabExplorer extends TabActivity {
         	tabHost.getTabWidget().getChildAt(i).getLayoutParams().height = 30;
         }
     }
+    
+
+
 }

@@ -10,105 +10,33 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.ListActivity;
+import android.app.Activity;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ListView;
 import android.widget.MediaController;
 import android.widget.SimpleAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
 
-public class AudioActivity extends ListActivity implements OnPreparedListener, MediaController.MediaPlayerControl {
+public class AudioActivity extends Activity implements OnPreparedListener, MediaController.MediaPlayerControl {
 	
 	private MediaPlayer mediaPlayer;	
 	private MediaController mediaController;
 	private Handler handler = new Handler();
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-//		setContentView(R.layout.audio);
-		JSONObject json = null;
-		try {
-			json = new JSONObject(getIntent().getExtras().getString("json"));
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		JSONArray audios = null;
-		try {
-			audios = json.getJSONArray("audio");
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		setListAdapter(new SimpleAdapter(this, getData(audios),
-				android.R.layout.simple_list_item_1, new String[] { "title" },
-				new int[] { android.R.id.text1 }));
-		getListView().setTextFilterEnabled(true);
-		registerForContextMenu(getListView());
-	}
-
-	private List getData(JSONArray videos) {
-		List<Map> myData = new ArrayList<Map>();
-		for (int i = 0; i < videos.length(); i++){
-			JSONObject jo = null;
-			String title = null;
-			String link = null;
-			try {
-				 jo = videos.getJSONObject(i);
-				 title = jo.getString("title");
-				 link = jo.getString("link");
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-//			Intent videoIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-			addItem(myData, title, link);
-		}
-		return myData;
-	}
-
-	protected void addItem(List<Map> data, String name, String link) {
-		Map<String, Object> temp = new HashMap<String, Object>();
-		temp.put("title", name);
-		temp.put("link", link);
-		data.add(temp);
-	}
-
-	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) {
-		Map map = (Map) l.getItemAtPosition(position);
-		String link = (String)map.get("link");
-	    if (mediaPlayer != null){
-	    	mediaPlayer.stop();
-	    }
-	    mediaPlayer = new MediaPlayer();
-	    
-	    mediaPlayer.setOnPreparedListener(this);
-
-	    mediaController = new MediaController(this);
-
-	    try {
-	      mediaPlayer.setDataSource(link);
-	      mediaPlayer.prepare();
-	      mediaPlayer.start();
-	    } catch (IOException e) {
-	      Log.e("MP3", "Could not open file " + link + " for playback.", e);
-	    }
-
-	}
 	
 	  public void onPrepared(MediaPlayer mediaPlayer) {
 		    Log.d("MP3", "onPrepared");
 		    mediaController.setMediaPlayer(this);
-//		    mediaController.setAnchorView(findViewById(R.id.audio_view));
-		    mediaController.setAnchorView(getListView());
+		    mediaController.setAnchorView(findViewById(R.id.audio_view));
+//		    mediaController.setAnchorView(getListView());
 
 		    handler.post(new Runnable() {
 		      public void run() {
@@ -174,29 +102,105 @@ public class AudioActivity extends ListActivity implements OnPreparedListener, M
 	    return false;
 	  }
 	  
-	  @Override
-	  public void onCreateContextMenu(ContextMenu menu, View v,
-	                                  ContextMenuInfo menuInfo) {
-	    super.onCreateContextMenu(menu, v, menuInfo);
-	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.context_audio, menu);
-	  }
-	  
-	  @Override
-	  public boolean onContextItemSelected(MenuItem item) {
-	    AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-	    switch (item.getItemId()) {
-	    case R.id.save:
-//	      save(info.id);
-	      return true;
-	    case R.id.share:
-//	      share(info.id);
-	      return true;
-	    case R.id.stop:
-	    	mediaPlayer.stop();
-	    	return true;
-	    default:
-	      return super.onContextItemSelected(item);
+	  String[] sMenuExampleNames;
+		
+		@Override
+		protected void onCreate(Bundle savedInstanceState) {
+			super.onCreate(savedInstanceState);
+			setContentView(R.layout.audio);
+			
+			JSONArray jsonArr = getJSONArrayfromIntent("audio");
+			buildSpinner(jsonArr);
+		}
+
+
+		private void buildSpinner(JSONArray jsonArr) {
+			SimpleAdapter adapter = new SimpleAdapter(this, getData(jsonArr),
+					android.R.layout.simple_spinner_item, new String[] { "title" },
+					new int[] { android.R.id.text1 });
+			
+	        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	        Spinner audio_spinner = (Spinner)findViewById(R.id.audio_spinner);
+	        audio_spinner.setAdapter(adapter);
+	        audio_spinner.setOnItemSelectedListener(
+	                new OnItemSelectedListener() {
+	                    public void onItemSelected(
+	                            AdapterView<?> parent, View view, int position, long id) {
+//	                        showToast("Spinner1: position=" + position + " id=" + id);
+	                        Map map = (Map) parent.getItemAtPosition(position);
+	                        String link = (String)map.get("link");
+	                        showToast("Loading URL: " + link);
+	                        loadAudio(link);
+	                    }
+
+	                    public void onNothingSelected(AdapterView<?> parent) {
+	                        showToast("Nothing to Load");
+	                    }
+	                });
+		}
+
+
+		private JSONArray getJSONArrayfromIntent(String type) {
+			JSONObject json = null;
+			try {
+				json = new JSONObject(getIntent().getExtras().getString("json"));
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			JSONArray jsonArr = null;
+			try {
+				jsonArr = json.getJSONArray(type);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			return jsonArr;
+		}
+
+
+		
+		private List getData(JSONArray videos) {
+			List<Map> myData = new ArrayList<Map>();
+			for (int i = 0; i < videos.length(); i++){
+				JSONObject jo = null;
+				String title = null;
+				String link = null;
+				try {
+					 jo = videos.getJSONObject(i);
+					 title = jo.getString("title");
+					 link = jo.getString("link");
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				addItem(myData, title, link);
+			}
+			return myData;
+		}
+
+		protected void addItem(List<Map> data, String name, String link) {
+			Map<String, Object> temp = new HashMap<String, Object>();
+			temp.put("title", name);
+			temp.put("link", link);
+			data.add(temp);
+		}
+		private void loadAudio(String link){
+		    if (mediaPlayer != null){
+		    	mediaPlayer.stop();
+		    }
+		    mediaPlayer = new MediaPlayer();
+		    
+		    mediaPlayer.setOnPreparedListener(this);
+
+		    mediaController = new MediaController(this);
+
+		    try {
+		      mediaPlayer.setDataSource(link);
+		      mediaPlayer.prepare();
+		      mediaPlayer.start();
+		    } catch (IOException e) {
+		      Log.e("MP3", "Could not open file " + link + " for playback.", e);
+		    }
+		}
+	    void showToast(CharSequence msg) {
+	        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
 	    }
-	  }
 }

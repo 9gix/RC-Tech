@@ -40,9 +40,9 @@ public class InfoActivity extends Activity {
 				new int[] { android.R.id.text1 });
 		
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        Spinner info_spinner = (Spinner)findViewById(R.id.info_spinner);
-        info_spinner.setAdapter(adapter);
-        info_spinner.setOnItemSelectedListener(
+        Spinner spinner = (Spinner)findViewById(R.id.info_spinner);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(
                 new OnItemSelectedListener() {
                     public void onItemSelected(
                             AdapterView<?> parent, View view, int position, long id) {
@@ -80,6 +80,7 @@ public class InfoActivity extends Activity {
 	private void setWebView() {
 		wv = (WebView)findViewById(R.id.webView);
 		wv.getSettings().setJavaScriptEnabled(true);
+		
 		wv.setWebViewClient(new WebViewClient(){
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
