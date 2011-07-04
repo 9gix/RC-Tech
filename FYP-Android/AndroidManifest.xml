@@ -21,6 +21,7 @@
         <activity android:name="VideoActivity"></activity>
         <activity android:name="AudioActivity"></activity>
         <activity android:name="InfoActivity" ></activity>
+        <activity android:name="ScannerActivity"></activity>
 
     </application>
 </manifest>

@@ -93,7 +93,8 @@ public class DashboardActivity extends Activity {
 	
 		@Override
 		public void onClick(View v) {
-	
+			startActivityForResult(new Intent(getApplicationContext(),
+					ScannerActivity.class), SCAN_CODE);
 		}
 	};
 	private OnClickListener cameraBtnListener = new OnClickListener() {
