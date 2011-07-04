@@ -35,6 +35,7 @@ public class MuseumRetriever extends Activity {
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpGet httpGet = new HttpGet(
 				"http://rc-tech.appspot.com/museum/json_view/" + qr);
+//				"http://localhost/museum/json_view/" + qr);
 		ResponseHandler<String> responseHandler = new BasicResponseHandler();
 		String responseBody;
 

@@ -19,6 +19,7 @@
         <activity android:name="MuseumRetriever"></activity>
         <activity android:name="TabExplorer"></activity>
         <activity android:name="VideoList"></activity>
+        <activity android:name="AudioList"></activity>
 
     </application>
 </manifest>

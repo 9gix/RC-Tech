@@ -35,7 +35,10 @@ public class TabExplorer extends TabActivity {
         String json = getIntent().getStringExtra("json");
         final TabHost tabHost = getTabHost();
         tabHost.addTab(tabHost.newTabSpec("video")
-                .setIndicator("video")
+                .setIndicator("Video")
                 .setContent(new Intent(this, VideoList.class).putExtra("json", json)));
+        tabHost.addTab(tabHost.newTabSpec("audio")
+                .setIndicator("Audio")
+                .setContent(new Intent(this, AudioList.class).putExtra("json", json)));
     }
 }
