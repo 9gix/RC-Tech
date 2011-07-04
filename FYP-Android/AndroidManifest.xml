@@ -20,6 +20,9 @@
         <activity android:name="TabExplorer"></activity>
         <activity android:name="VideoList"></activity>
         <activity android:name="AudioList"></activity>
+        <activity android:name="InfoList"></activity>
+        <activity android:name="WebViewActivity"></activity>
+        <activity android:name="InfoActivity"></activity>
 
     </application>
 </manifest>
