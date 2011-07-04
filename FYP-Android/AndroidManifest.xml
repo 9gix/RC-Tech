@@ -20,7 +20,6 @@
         <activity android:name="TabExplorer" android:screenOrientation="portrait"></activity>
         <activity android:name="VideoList"></activity>
         <activity android:name="AudioActivity"></activity>
-        <activity android:name="InfoList"></activity>
         <activity android:name="InfoActivity" ></activity>
 
     </application>
