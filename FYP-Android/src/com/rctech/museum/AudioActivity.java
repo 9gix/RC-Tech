@@ -11,10 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
 import android.media.MediaPlayer;
-import android.media.MediaPlayer.OnPreparedListener;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -22,192 +19,216 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ListView;
 import android.widget.MediaController;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class AudioActivity extends Activity implements OnPreparedListener, MediaController.MediaPlayerControl {
-	
-	private MediaPlayer mediaPlayer;	
+public class AudioActivity extends Activity implements
+		MediaPlayer.OnPreparedListener, MediaController.MediaPlayerControl {
+
+	private MediaPlayer mediaPlayer;
 	private MediaController mediaController;
 	private Handler handler = new Handler();
+	private String link;
+	Spinner audio_spinner;
+	String[] sMenuExampleNames;
+
+	// ----------------------------------------------------
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		Log.d("LIFE","CREATED");
+		setContentView(R.layout.audio);
+
+		JSONArray jsonArr = getJSONArrayfromIntent("audio");
+		buildSpinner(jsonArr);
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		Log.d("LIFE","STOP");
+		mediaPlayer.stop();
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		Log.d("LIFE","RESUME");	
+	}
 	
-	  
-
-	//--MediaPlayerControl methods----------------------------------------------------
-	  public void start() {
-	    mediaPlayer.start();
-	  }
-
-	  public void pause() {
-	    mediaPlayer.pause();
-	  }
-
-	  public int getDuration() {
-	    return mediaPlayer.getDuration();
-	  }
-
-	  public int getCurrentPosition() {
-	    return mediaPlayer.getCurrentPosition();
-	  }
-
-	  public void seekTo(int i) {
-	    mediaPlayer.seekTo(i);
-	  }
-
-	  public boolean isPlaying() {
-	    return mediaPlayer.isPlaying();
-	  }
-
-	  public int getBufferPercentage() {
-	    return 0;
-	  }
-
-	  public boolean canPause() {
-	    return true;
-	  }
-
-	  public boolean canSeekBackward() {
-	    return true;
-	  }
-
-	  public boolean canSeekForward() {
-	    return true;
-	  }
-	  //--------------------------------------------------------------------------------
-	  @Override
-	  protected void onStop() {
-	    super.onStop();
-	    mediaPlayer.stop();
-	    mediaPlayer.release();
-	  }
-
-	  @Override
-	  public boolean onTouchEvent(MotionEvent event) {
-	    //the MediaController will hide after 3 seconds - tap the screen to make it appear again
-	    mediaController.show();
-	    return false;
-	  }
-	  
-	  String[] sMenuExampleNames;
+	@Override
+	protected void onRestart() {
+		// TODO Auto-generated method stub
+		super.onRestart();
+		Log.d("LIFE","RESTART");
 		
-		@Override
-		protected void onCreate(Bundle savedInstanceState) {
-			super.onCreate(savedInstanceState);
-			setContentView(R.layout.audio);
-			
-			JSONArray jsonArr = getJSONArrayfromIntent("audio");
-			buildSpinner(jsonArr);
+		// Reconstruct Spinner Listener to Play Audio on Restart
+		JSONArray jsonArr = getJSONArrayfromIntent("audio");
+		buildSpinner(jsonArr);
+	}
+
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		Log.d("LIFE","DESTROYED");
+		mediaPlayer.release();
+	}
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		// the MediaController will hide after 3 seconds - tap the screen to
+		// make it appear again
+		mediaController.show();
+		return false;
+	}
+
+	private void buildSpinner(JSONArray jsonArr) {
+		SimpleAdapter adapter = new SimpleAdapter(this, getData(jsonArr),
+				android.R.layout.simple_spinner_item, new String[] { "title" },
+				new int[] { android.R.id.text1 });
+
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		audio_spinner = (Spinner) findViewById(R.id.audio_spinner);
+		audio_spinner.setAdapter(adapter);
+
+
+		audio_spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+				loadAudio();
+			}
+
+			public void onNothingSelected(AdapterView<?> parent) {
+				showToast("Nothing to Load");
+			}
+		});
+	}
+
+	private JSONArray getJSONArrayfromIntent(String type) {
+		JSONObject json = null;
+		try {
+			json = new JSONObject(getIntent().getExtras().getString("json"));
+		} catch (JSONException e) {
+			e.printStackTrace();
 		}
-
-
-		private void buildSpinner(JSONArray jsonArr) {
-			SimpleAdapter adapter = new SimpleAdapter(this, getData(jsonArr),
-					android.R.layout.simple_spinner_item, new String[] { "title" },
-					new int[] { android.R.id.text1 });
-			
-	        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-	        Spinner audio_spinner = (Spinner)findViewById(R.id.audio_spinner);
-	        audio_spinner.setAdapter(adapter);
-	        audio_spinner.setOnItemSelectedListener(
-	                new OnItemSelectedListener() {
-	                    public void onItemSelected(
-	                            AdapterView<?> parent, View view, int position, long id) {
-//	                        showToast("Spinner1: position=" + position + " id=" + id);
-	                        Map map = (Map) parent.getItemAtPosition(position);
-	                        final String link = (String)map.get("link");
-	                        showToast("Loading URL: " + link);
-	                        loadAudio(link);
-	                    } 
-	                    
-
-	                    public void onNothingSelected(AdapterView<?> parent) {
-	                        showToast("Nothing to Load");
-	                    }
-	                });
+		JSONArray jsonArr = null;
+		try {
+			jsonArr = json.getJSONArray(type);
+		} catch (JSONException e) {
+			e.printStackTrace();
 		}
+		return jsonArr;
+	}
 
-
-		private JSONArray getJSONArrayfromIntent(String type) {
-			JSONObject json = null;
+	private List getData(JSONArray jsonArr) {
+		List<Map> myData = new ArrayList<Map>();
+		for (int i = 0; i < jsonArr.length(); i++) {
+			JSONObject jo = null;
+			String title = null;
+			String link = null;
 			try {
-				json = new JSONObject(getIntent().getExtras().getString("json"));
+				jo = jsonArr.getJSONObject(i);
+				title = jo.getString("title");
+				link = jo.getString("link");
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-			JSONArray jsonArr = null;
-			try {
-				jsonArr = json.getJSONArray(type);
-			} catch (JSONException e) {
-				e.printStackTrace();
+			addItem(myData, title, link);
+		}
+		return myData;
+	}
+
+	protected void addItem(List<Map> data, String name, String link) {
+		Map<String, Object> temp = new HashMap<String, Object>();
+		temp.put("title", name);
+		temp.put("link", link);
+		data.add(temp);
+	}
+
+	private void loadAudio() {
+		Map map = (Map) audio_spinner.getSelectedItem();
+		link = (String) map.get("link");
+		showToast("Loading URL: " + link);
+		if (mediaPlayer != null)
+			if (mediaPlayer.isPlaying())
+				mediaPlayer.stop();
+		mediaPlayer = new MediaPlayer();
+		mediaController = new MediaController(this);
+		mediaPlayer.setOnPreparedListener(this);
+		mediaController.setMediaPlayer(this); 
+		mediaController.setAnchorView(findViewById(R.id.audio_view));
+		try {
+			mediaPlayer.setDataSource(link);
+			mediaPlayer.prepareAsync();
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	void showToast(CharSequence msg) {
+		Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+	}
+
+	// MediaPlayer methods
+	public void onPrepared(MediaPlayer mediaPlayer) {
+		Log.d("MP3", "onPrepared");
+		mediaPlayer.start();
+		handler.post(new Runnable() {
+			public void run() {
+				mediaController.setEnabled(true);
+				mediaController.show();
+				Log.d("MP3", "SHOWN");
 			}
-			return jsonArr;
-		}
+		});
+	}
 
+	// --MediaPlayerControl method
+	// ----------------------------------------------
+	public void start() {
+		mediaPlayer.start();
+	}
 
-		
-		private List getData(JSONArray jsonArr) {
-			List<Map> myData = new ArrayList<Map>();
-			for (int i = 0; i < jsonArr.length(); i++){
-				JSONObject jo = null;
-				String title = null;
-				String link = null;
-				try {
-					 jo = jsonArr.getJSONObject(i);
-					 title = jo.getString("title");
-					 link = jo.getString("link");
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-				addItem(myData, title, link);
-			}
-			return myData;
-		}
+	public void pause() {
+		mediaPlayer.pause();
+	}
 
-		protected void addItem(List<Map> data, String name, String link) {
-			Map<String, Object> temp = new HashMap<String, Object>();
-			temp.put("title", name);
-			temp.put("link", link);
-			data.add(temp);
-		}
-		private void loadAudio(String link){
-		    if (mediaPlayer != null){
-		    	mediaPlayer.stop();
-		    }
-		    mediaPlayer = new MediaPlayer();
-		    
-		    mediaPlayer.setOnPreparedListener(this);
+	public int getDuration() {
+		return mediaPlayer.getDuration();
+	}
 
-		    mediaController = new MediaController(this);
+	public int getCurrentPosition() {
+		return mediaPlayer.getCurrentPosition();
+	}
 
-		    try {
-		      mediaPlayer.setDataSource(link);
-		      mediaPlayer.prepare();
-		      mediaPlayer.start();
-		    } catch (IOException e) {
-		      Log.e("MP3", "Could not open file " + link + " for playback.", e);
-		    }
-		}
-		
+	public void seekTo(int i) {
+		mediaPlayer.seekTo(i);
+	}
 
-	    
-	    public void onPrepared(MediaPlayer mediaPlayer) {
-		    Log.d("MP3", "onPrepared");
-		    mediaController.setMediaPlayer(this);
-		    mediaController.setAnchorView(findViewById(R.id.audio_view));
+	public boolean isPlaying() {
+		return mediaPlayer.isPlaying();
+	}
 
-		    handler.post(new Runnable() {
-		      public void run() {
-		        mediaController.setEnabled(true);
-		        mediaController.show();
-		        Log.d("MP3","SHOWN");
-		      }
-		    });
-		  }
+	public int getBufferPercentage() {
+		return 0;
+	}
 
-	    void showToast(CharSequence msg) {
-	        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-	    }
+	public boolean canPause() {
+		return true;
+	}
+
+	public boolean canSeekBackward() {
+		return true;
+	}
+
+	public boolean canSeekForward() {
+		return true;
+	}
 }
