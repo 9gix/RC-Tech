@@ -6,7 +6,7 @@
   android:layout_height="match_parent">
     <LinearLayout android:layout_width="match_parent" android:id="@+id/linearLayout1" android:layout_height="40dip">
         <Spinner android:layout_weight="1" android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/info_spinner"></Spinner>
-        <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/Save" android:text="Save"></Button>
+        <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="Save" android:id="@+id/Save"></Button>
     </LinearLayout>
     <WebView android:layout_height="match_parent" android:id="@+id/webView" android:layout_width="match_parent"></WebView>
     
