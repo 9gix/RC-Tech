@@ -16,12 +16,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-public class SearchActivity extends Activity {
+public class DemoActivity extends Activity {
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.search);
+//		setContentView(R.layout.search);
 		String qr = "SG_WW2_1";
 		startActivityForResult(new Intent(getApplicationContext(),MuseumRetriever.class).putExtra("qr", qr), 0);
 //		JSONObject response = MuseumRetriever.getData(qr);

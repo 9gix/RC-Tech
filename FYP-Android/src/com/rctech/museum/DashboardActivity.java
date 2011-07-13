@@ -17,6 +17,8 @@ public class DashboardActivity extends Activity {
 	private static final int SCAN_CODE = 1;
 	private static final int LOAD_CODE = 2;
 	private static final int SEARCH_CODE = 3;
+	private static final int DEMO_CODE = 4;
+	private static final int VISITED_CODE = 5;
 
 	JSONObject json;
 
@@ -29,7 +31,8 @@ public class DashboardActivity extends Activity {
 	private void addButtonListener() {
 		((Button) findViewById(R.id.btn_scan)).setOnClickListener(scanBtnListener);
 		((Button) findViewById(R.id.btn_load)).setOnClickListener(loadBtnListener);
-		((Button) findViewById(R.id.btn_search)).setOnClickListener(searchBtnListener);
+		((Button) findViewById(R.id.btn_visited)).setOnClickListener(visitedBtnListener);
+		((Button) findViewById(R.id.btn_sample)).setOnClickListener(sampleBtnListener);
 		((Button) findViewById(R.id.btn_camera)).setOnClickListener(cameraBtnListener);
 		((Button) findViewById(R.id.btn_share)).setOnClickListener(shareBtnListener);
 		((Button) findViewById(R.id.btn_mark)).setOnClickListener(markBtnListener);
@@ -58,12 +61,11 @@ public class DashboardActivity extends Activity {
 	
 	/* List of Button Listener */
 	
-	private OnClickListener searchBtnListener = new OnClickListener() {
+	private OnClickListener visitedBtnListener = new OnClickListener() {
 	
 		@Override
 		public void onClick(View v) {
-			startActivityForResult(new Intent(getApplicationContext(),
-					SearchActivity.class), SEARCH_CODE);
+			 startActivityForResult(new Intent(getApplicationContext(),VisitedActivity.class), VISITED_CODE);
 		}
 	};
 	private OnClickListener markBtnListener = new OnClickListener() {
@@ -73,19 +75,25 @@ public class DashboardActivity extends Activity {
 
 		}
 	};
+	private OnClickListener sampleBtnListener = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			startActivityForResult(new Intent(getApplicationContext(),
+					DemoActivity.class), DEMO_CODE);
+		}
+	};
 	private OnClickListener shareBtnListener = new OnClickListener() {
 
 		@Override
 		public void onClick(View v) {
-
+			startActivityForResult(new Intent(getApplicationContext(),
+					DemoActivity.class), DEMO_CODE);
 		}
 	};
-	
 	private OnClickListener loadBtnListener = new OnClickListener() {
-		
 		@Override
 		public void onClick(View v) {
-			// TODO Auto-generated method stub
 			
 		}
 	};

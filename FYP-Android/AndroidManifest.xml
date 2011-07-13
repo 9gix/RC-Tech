@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name="DashboardActivity"></activity>
-        <activity android:name="SearchActivity"></activity>
+        <activity android:name=".DemoActivity"></activity>
         <activity android:name="MuseumRetriever"></activity>
         <activity android:name="TabExplorer" android:screenOrientation="portrait"></activity>
         <activity android:name="VideoActivity"></activity>
@@ -25,6 +25,6 @@
         <activity android:name="InfoActivity" ></activity>
         <activity android:name="ScannerActivity"></activity>
         <activity android:name="CameraActivity"></activity>
-
+		<activity android:name="VisitedActivity"></activity>
     </application>
 </manifest>
