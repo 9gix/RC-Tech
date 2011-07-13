@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore.Video;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -52,8 +53,8 @@ public class DashboardActivity extends Activity {
 			// explore exhibit
 			startActivity(new Intent(getApplicationContext(),TabExplorer.class).putExtra("json", jsdata));
 			
-		} else {
-
+		} else if (resultCode == RESULT_CANCELED) {
+			
 		}
 		
 	};
@@ -94,7 +95,7 @@ public class DashboardActivity extends Activity {
 	private OnClickListener loadBtnListener = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			
+
 		}
 	};
 	private OnClickListener scanBtnListener = new OnClickListener() {

@@ -19,16 +19,20 @@ public class ScannerActivity extends Activity {
     }
     
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        if (requestCode == 4) {
-            if (resultCode == RESULT_OK) {
-                String qr = intent.getStringExtra("SCAN_RESULT");
-                startActivityForResult(new Intent(getApplicationContext(),MuseumRetriever.class).putExtra("qr", qr), 2);
-            }
-        }else if(requestCode == 2){
-        	if (resultCode == RESULT_OK){
-        		setResult(RESULT_OK, (new Intent()).setAction(intent.getAction()));
-        		finish();
-        	}
-        }
+    	if (resultCode == RESULT_OK){
+	        if (requestCode == 4) {
+	            
+	                String qr = intent.getStringExtra("SCAN_RESULT");
+	                startActivityForResult(new Intent(getApplicationContext(),MuseumRetriever.class).putExtra("qr", qr), 2);
+	            
+	        }else if(requestCode == 2){
+	        	
+	        		setResult(RESULT_OK, (new Intent()).setAction(intent.getAction()));
+	        		finish();
+	        	
+	        }
+    	}else if(resultCode == RESULT_CANCELED){
+    		finish();
+    	}
     }
 }

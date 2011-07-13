@@ -3,7 +3,7 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:orientation="vertical"
   android:layout_width="match_parent"
-  android:layout_height="match_parent" android:id="@+id/video_view">
+  android:layout_height="match_parent">
     <LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/linearLayout1">
         <Spinner android:layout_weight="1" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/video_spinner"></Spinner>
         <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/btn_play" android:text="Play"></Button>
