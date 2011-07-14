@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/scan_opt" android:title="Scan"></item>
+    <group android:id="@+id/media_opt">
+        <item android:id="@+id/play_opt" android:title="Play"></item>
+        <item android:id="@+id/pause_opt" android:title="Pause"></item>
+        <item android:id="@+id/playlist_opt" android:title="Playlist">
+            <menu>
+                <item android:id="@+id/item1"></item>
+            </menu>
+        </item>
+    </group>
+    
+</menu>

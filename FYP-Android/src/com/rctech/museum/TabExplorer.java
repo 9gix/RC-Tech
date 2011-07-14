@@ -20,6 +20,8 @@ import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.widget.TabHost;
 
 /**
@@ -47,8 +49,16 @@ public class TabExplorer extends TabActivity {
         for (int i = 0; i < 3; i++){
         	tabHost.getTabWidget().getChildAt(i).getLayoutParams().height = 30;
         }
+        
     }
     
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+    	// TODO Auto-generated method stub
+    	MenuInflater inflater = getMenuInflater();
+    	inflater.inflate(R.menu.explorer, menu);
+    	return true;
+    }
 
 
 }
