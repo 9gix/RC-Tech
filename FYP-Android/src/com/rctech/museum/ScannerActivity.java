@@ -3,6 +3,7 @@ package com.rctech.museum;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 public class ScannerActivity extends Activity {
 	
@@ -32,6 +33,8 @@ public class ScannerActivity extends Activity {
 	        	
 	        }
     	}else if(resultCode == RESULT_CANCELED){
+    		Log.d("HELLO","RESULT CANCEL");
+    		setResult(RESULT_CANCELED);
     		finish();
     	}
     }

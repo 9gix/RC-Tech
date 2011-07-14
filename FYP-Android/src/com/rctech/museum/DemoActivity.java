@@ -21,20 +21,18 @@ public class DemoActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-//		setContentView(R.layout.search);
 		String qr = "SG_WW2_1";
 		startActivityForResult(new Intent(getApplicationContext(),MuseumRetriever.class).putExtra("qr", qr), 0);
-//		JSONObject response = MuseumRetriever.getData(qr);
-//		Log.d("RESULT", response.toString());
-		
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
-//		Log.d("Result", data.getAction());
-		setResult(RESULT_OK, (new Intent()).setAction(data.getAction()));
+		if (resultCode == RESULT_OK)
+			setResult(RESULT_OK, (new Intent()).setAction(data.getAction()));
+		else 
+			setResult(RESULT_CANCELED);
         finish();
 	}
 	

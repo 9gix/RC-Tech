@@ -4,13 +4,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.provider.MediaStore.Video;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class DashboardActivity extends Activity {
 
@@ -39,6 +42,7 @@ public class DashboardActivity extends Activity {
 		((Button) findViewById(R.id.btn_mark)).setOnClickListener(markBtnListener);
 	}
 
+
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		String jsdata = "";
 		if (resultCode == RESULT_OK) {
@@ -51,8 +55,8 @@ public class DashboardActivity extends Activity {
 			
 			
 			// explore exhibit
-			startActivity(new Intent(getApplicationContext(),TabExplorer.class).putExtra("json", jsdata));
 			
+			startActivity(new Intent(getApplicationContext(),TabExplorer.class).putExtra("json", jsdata));
 		} else if (resultCode == RESULT_CANCELED) {
 			
 		}
@@ -88,8 +92,7 @@ public class DashboardActivity extends Activity {
 
 		@Override
 		public void onClick(View v) {
-			startActivityForResult(new Intent(getApplicationContext(),
-					DemoActivity.class), DEMO_CODE);
+
 		}
 	};
 	private OnClickListener loadBtnListener = new OnClickListener() {
@@ -113,4 +116,5 @@ public class DashboardActivity extends Activity {
 			startActivity(new Intent(getApplicationContext(),CameraActivity.class));
 		}
 	};
+
 }

@@ -13,9 +13,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 public class MuseumRetriever extends Activity {
 	
@@ -24,8 +28,15 @@ public class MuseumRetriever extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		String qr = getIntent().getExtras().getString("qr");
-		String response = getData(qr).toString();
-		setResult(RESULT_OK, (new Intent()).setAction(response));
+		String response;
+		if (isOnline()){
+			response = getData(qr).toString();
+			setResult(RESULT_OK, (new Intent()).setAction(response));
+		}else{
+			showToast("No Internet Connectivity");
+			showToast("Stored in Visited History, Please load it when you have internet connectivity");
+			setResult(RESULT_CANCELED);
+		}
         finish();
 	}
 
@@ -52,4 +63,16 @@ public class MuseumRetriever extends Activity {
 
 		return response;
 	}
+	public boolean isOnline() {
+	    ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+	    NetworkInfo netInfo = cm.getActiveNetworkInfo();
+	    if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+	        return true;
+	    }
+	    return false;
+	}
+
+   void showToast(CharSequence msg) {
+       Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+   }
 }
