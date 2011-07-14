@@ -33,6 +33,8 @@ public class AudioActivity extends Activity implements
 	private String link;
 	Spinner audio_spinner;
 	String[] sMenuExampleNames;
+	boolean preparing = false;
+
 
 	// ----------------------------------------------------
 
@@ -41,7 +43,11 @@ public class AudioActivity extends Activity implements
 		super.onCreate(savedInstanceState);
 		Log.d("LIFE","CREATED");
 		setContentView(R.layout.audio);
-
+		mediaPlayer = new MediaPlayer();
+		mediaController = new MediaController(this);
+		mediaPlayer.setOnPreparedListener(this);
+		mediaController.setMediaPlayer(this); 
+		mediaController.setAnchorView(findViewById(R.id.audio_view));
 		JSONArray jsonArr = getJSONArrayfromIntent("audio");
 		buildSpinner(jsonArr);
 	}
@@ -96,18 +102,19 @@ public class AudioActivity extends Activity implements
 		audio_spinner.setAdapter(adapter);
 
 
-		audio_spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-			public void onItemSelected(AdapterView<?> parent, View view,
-					int position, long id) {
-				loadAudio();
-			}
-
-			public void onNothingSelected(AdapterView<?> parent) {
-				showToast("Nothing to Load");
-			}
-		});
+		audio_spinner.setOnItemSelectedListener(itemSelectListener );
 	}
+	
+	private OnItemSelectedListener itemSelectListener = new OnItemSelectedListener() {
+		public void onItemSelected(AdapterView<?> parent, View view,
+				int position, long id) {
+			loadAudio();
+		}
 
+		public void onNothingSelected(AdapterView<?> parent) {
+			showToast("Nothing to Load");
+		}
+	};
 	private JSONArray getJSONArrayfromIntent(String type) {
 		JSONObject json = null;
 		try {
@@ -153,22 +160,15 @@ public class AudioActivity extends Activity implements
 		Map map = (Map) audio_spinner.getSelectedItem();
 		link = (String) map.get("link");
 		showToast("Loading URL: " + link);
-		if (mediaPlayer != null)
-			if (mediaPlayer.isPlaying())
-				mediaPlayer.stop();
-		mediaPlayer = new MediaPlayer();
-		mediaController = new MediaController(this);
-		mediaPlayer.setOnPreparedListener(this);
-		mediaController.setMediaPlayer(this); 
-		mediaController.setAnchorView(findViewById(R.id.audio_view));
+		if (mediaPlayer.isPlaying() || preparing == true)
+			mediaPlayer.reset();
 		try {
 			mediaPlayer.setDataSource(link);
 			mediaPlayer.prepareAsync();
+			preparing = true;
 		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -188,6 +188,7 @@ public class AudioActivity extends Activity implements
 				Log.d("MP3", "SHOWN");
 			}
 		});
+		preparing = false;
 	}
 
 	// --MediaPlayerControl method
