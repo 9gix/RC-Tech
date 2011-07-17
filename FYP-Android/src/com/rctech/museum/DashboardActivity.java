@@ -44,27 +44,6 @@ public class DashboardActivity extends Activity {
 		((Button) findViewById(R.id.btn_mark)).setOnClickListener(markBtnListener);
 	}
 
-
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		String jsdata = "";
-		if (resultCode == RESULT_OK) {
-			jsdata = data.getAction();
-			Log.d("JSON",jsdata);
-			
-//			json = new JSONObject(jsdata);
-			
-			// save in history
-			
-			
-			// explore exhibit
-			
-			startActivity(new Intent(getApplicationContext(),TabExplorer.class).putExtra("json", jsdata));
-		} else if (resultCode == RESULT_CANCELED) {
-			
-		}
-		
-	};
-
 	
 	/* List of Button Listener */
 	
@@ -72,7 +51,7 @@ public class DashboardActivity extends Activity {
 	
 		@Override
 		public void onClick(View v) {
-			 startActivityForResult(new Intent(getApplicationContext(),VisitedActivity.class), VISITED_CODE);
+			 startActivity(new Intent(getApplicationContext(),VisitedActivity.class));
 		}
 	};
 	private OnClickListener markBtnListener = new OnClickListener() {
