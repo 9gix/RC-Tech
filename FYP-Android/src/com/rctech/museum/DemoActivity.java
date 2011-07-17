@@ -30,9 +30,7 @@ public class DemoActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == RESULT_OK)
-			setResult(RESULT_OK, (new Intent()).setAction(data.getAction()));
-		else 
-			setResult(RESULT_CANCELED);
+			startActivity(new Intent(getApplicationContext(),TabExplorer.class).putExtra("json", data.getAction()));
         finish();
 	}
 	

@@ -27,14 +27,12 @@ public class ScannerActivity extends Activity {
 	                startActivityForResult(new Intent(getApplicationContext(),MuseumRetriever.class).putExtra("qr", qr), 2);
 	            
 	        }else if(requestCode == 2){
-	        	
-	        		setResult(RESULT_OK, (new Intent()).setAction(intent.getAction()));
+	        	startActivity(new Intent(getApplicationContext(),TabExplorer.class).putExtra("json", intent.getAction()));
 	        		finish();
 	        	
 	        }
     	}else if(resultCode == RESULT_CANCELED){
     		Log.d("HELLO","RESULT CANCEL");
-    		setResult(RESULT_CANCELED);
     		finish();
     	}
     }

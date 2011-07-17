@@ -1,5 +1,7 @@
 package com.rctech.museum;
 
+import java.util.Scanner;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -84,8 +86,7 @@ public class DashboardActivity extends Activity {
 
 		@Override
 		public void onClick(View v) {
-			startActivityForResult(new Intent(getApplicationContext(),
-					DemoActivity.class), DEMO_CODE);
+			startActivity(new Intent(getApplicationContext(),DemoActivity.class));
 		}
 	};
 	private OnClickListener shareBtnListener = new OnClickListener() {
@@ -105,8 +106,7 @@ public class DashboardActivity extends Activity {
 	
 		@Override
 		public void onClick(View v) {
-			startActivityForResult(new Intent(getApplicationContext(),
-					ScannerActivity.class), SCAN_CODE);
+			startActivity(new Intent(getApplicationContext(),ScannerActivity.class));
 		}
 	};
 	private OnClickListener cameraBtnListener = new OnClickListener() {
