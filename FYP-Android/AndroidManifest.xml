@@ -27,5 +27,6 @@
         <activity android:name="ScannerActivity"></activity>
         <activity android:name="CameraActivity"></activity>
 		<activity android:name="VisitedActivity"></activity>
+		<activity android:name="Prefs"></activity>
     </application>
 </manifest>

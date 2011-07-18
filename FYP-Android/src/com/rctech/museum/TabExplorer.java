@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,7 +30,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TabHost;
 import android.widget.Toast;
 
-public class TabExplorer extends TabActivity implements MediaPlayer.OnPreparedListener, MediaController.MediaPlayerControl {
+public class TabExplorer extends TabActivity implements MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener, MediaController.MediaPlayerControl {
 
 	private static final int DIALOG_PLAYLIST_ID = 0;
 	MediaPlayer mp = new MediaPlayer();
@@ -39,6 +40,7 @@ public class TabExplorer extends TabActivity implements MediaPlayer.OnPreparedLi
 	AlertDialog.Builder builder;
 	private String link;
 	private List audio_list;
+	private int nowPlaying = 0;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,12 +62,13 @@ public class TabExplorer extends TabActivity implements MediaPlayer.OnPreparedLi
         setupMedia();
         audio_list = getData(getJSONArrayfromIntent("audio"));
         try{
-        	Map m = (Map) audio_list.get(0);
+        	Map m = (Map) audio_list.get(nowPlaying);
         	link = m.get("link").toString();
         }catch (IndexOutOfBoundsException e){
         	link = null;
         }
-    	prepareData();
+        if (Prefs.getAutoplay(getApplicationContext()))
+        	prepareData();
     }
     
     @Override
@@ -146,6 +149,9 @@ public class TabExplorer extends TabActivity implements MediaPlayer.OnPreparedLi
 		switch (item.getItemId()){
 		case R.id.scan_opt:
 			startActivity(new Intent(getApplicationContext(),ScannerActivity.class));
+			if (!Prefs.getStack(getApplicationContext())){
+				finish();
+			}
 			return true;
 		case R.id.mark_opt:
 			return true;
@@ -154,9 +160,10 @@ public class TabExplorer extends TabActivity implements MediaPlayer.OnPreparedLi
 			return true;
 		case R.id.control_opt:
 			mc.show();
-			break;
+			return true;
 		case R.id.setting_opt:
-			break;
+			startActivity(new Intent(getApplicationContext(),Prefs.class));
+			return true;
 		case R.id.about_opt:
 			break;
 		default:
@@ -248,7 +255,7 @@ public class TabExplorer extends TabActivity implements MediaPlayer.OnPreparedLi
     	mp.setOnPreparedListener(this);
     	mc.setMediaPlayer(this);
     	mc.setAnchorView(findViewById(R.id.explorer_view));
-    	prepareData();
+    	mp.setOnCompletionListener(this);
 	}
 
 	private void prepareData() {
@@ -327,5 +334,39 @@ public class TabExplorer extends TabActivity implements MediaPlayer.OnPreparedLi
 		temp.put("title", name);
 		temp.put("link", link);
 		data.add(temp);
+	}
+
+	@Override
+	public void onCompletion(MediaPlayer mp) {
+		// TODO Auto-generated method stub
+		Log.d("HELLO","COMPLETED");
+		if (Prefs.getPlaynext(getApplicationContext())){
+			Log.d("HELLO","PLAYED NEXT");
+			if (Prefs.getShuffleplay(getApplicationContext())){
+				Log.d("HELLO","SHUFFLED");
+				int previous = nowPlaying;
+				while (nowPlaying==previous){
+					nowPlaying = new Random().nextInt(audio_list.size());
+				}
+			}else{
+				nowPlaying++;
+				if (nowPlaying > audio_list.size()){
+					if (!Prefs.getRepeatplay(getApplicationContext())){
+						return;
+					}else{
+						nowPlaying = 0;
+					}
+				}
+			}
+			try{
+	        	Map m = (Map) audio_list.get(nowPlaying);
+	        	link = m.get("link").toString();
+	        }catch (IndexOutOfBoundsException e){
+	        	link = null;
+	        }
+			mp.reset();
+			prepareData();
+		}
+		
 	}
 }

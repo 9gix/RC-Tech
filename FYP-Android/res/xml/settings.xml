@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+	<PreferenceCategory android:key="audio_pref"
+		android:title="MediaPlayer">
+		<CheckBoxPreference android:key="autoplay"
+			android:title="Autoplay" android:summary="Automatically play audio when started" android:defaultValue="true"></CheckBoxPreference>
+		<CheckBoxPreference android:summary="Play next sound track on completed"
+			android:title="PlayNext" android:key="next" android:defaultValue="true"></CheckBoxPreference><CheckBoxPreference android:key="repeat" android:title="Repeat All" android:summary="Repeat playing when all sound track in the playlist has been played" android:dependency="next"></CheckBoxPreference><CheckBoxPreference android:title="Shuffle"
+			android:summary="Play sound track randomly, keep repeat after completion"
+			android:key="shuffle" android:dependency="repeat"></CheckBoxPreference>
+		
+			
+	</PreferenceCategory>
+	<PreferenceCategory android:key="general_pref"
+		android:title="General">
+		<CheckBoxPreference
+			android:summary="Allow you to go back to previous exhibit when you start a new scan"
+			android:key="stack" android:title="Stack Exhibit" android:defaultValue="true"></CheckBoxPreference>
+	</PreferenceCategory>
+
+</PreferenceScreen>
