@@ -1,24 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-	<group android:id="@+id/exhibit_group">
-		<item android:id="@+id/scan_opt" android:title="Scan"></item>
-		<item android:id="@+id/mark_opt" android:title="Bookmark"></item>
-	</group>
-	<group android:id="@+id/mp_group">
-		<item android:id="@+id/control_opt" android:title="Media Control"></item>
-		<item android:id="@+id/playlist_opt" android:title="Playlist"></item>
-	</group>
-	<group android:id="@+id/setting_group">
-		<item android:id="@+id/setting_opt" android:title="Setting"></item>
-		<item android:id="@+id/about_opt" android:title="About"></item>
-	</group>
-    
-    
-    
-    
-    
-    
-    
-    
-    
+	<item android:id="@+id/scan_opt" android:title="Scan" android:icon="@drawable/scan"></item>
+	<item android:id="@+id/control_opt" android:title="Media Control" android:icon="@drawable/play"></item>
+	<item android:id="@+id/playlist_opt" android:title="Playlist" android:icon="@drawable/playlist"></item>
+	<item android:id="@+id/mark_opt" android:title="Bookmark" android:icon="@drawable/bookmark"></item>
+	<item android:id="@+id/setting_opt" android:title="Setting" android:icon="@drawable/setting"></item>
+	<item android:id="@+id/about_opt" android:title="About" android:icon="@drawable/museum"></item>
+
+
+
+
+
+
+
+
+
 </menu>
