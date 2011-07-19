@@ -1,5 +1,9 @@
 package com.rctech.museum;
 
+import static com.rctech.museum.Constants.TABLE_NAME;
+import static com.rctech.museum.Constants.QR;
+import static com.rctech.museum.Constants.TIME;
+
 import java.io.IOException;
 
 import org.apache.http.client.ClientProtocolException;
@@ -8,13 +12,14 @@ import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -23,6 +28,7 @@ import android.widget.Toast;
 
 public class MuseumRetriever extends Activity {
 	
+	MuseumData museumData;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -31,15 +37,30 @@ public class MuseumRetriever extends Activity {
 		String response;
 		if (isOnline()){
 			response = getData(qr).toString();
-			setResult(RESULT_OK, (new Intent()).setAction(response));
+//			setResult(RESULT_OK, (new Intent()).setAction(response));
+			startActivity(new Intent(getApplicationContext(),TabExplorer.class).setAction(response));
 		}else{
 			showToast("No Internet Connectivity");
 			showToast("Stored in Visited History, Please load it when you have internet connectivity");
 			setResult(RESULT_CANCELED);
 		}
+		museumData = new MuseumData(this);
+		try{
+			addQR(qr);
+			Log.d("HELLO","SAVED");
+		}finally{
+			museumData.close();
+		}
         finish();
 	}
 
+	private void addQR(String qr){
+		SQLiteDatabase db = museumData.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put(TIME, System.currentTimeMillis());
+		values.put(QR, qr);
+		db.insertOrThrow(TABLE_NAME, null, values);
+	}
 
 	private JSONObject getData(String qr) {
 		JSONObject response = null;

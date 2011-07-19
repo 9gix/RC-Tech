@@ -41,21 +41,23 @@ public class TabExplorer extends TabActivity implements MediaPlayer.OnPreparedLi
 	private String link;
 	private List audio_list;
 	private int nowPlaying = 0;
+	String json_str;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.explorer);
-        String json = getIntent().getStringExtra("json");
+        json_str = getIntent().getAction();
+//        String json = getIntent().getStringExtra("json");
         
         final TabHost tabHost = getTabHost();
 
         tabHost.addTab(tabHost.newTabSpec("info")
         		.setIndicator("Info")
-        		.setContent(new Intent(this, InfoActivity.class).putExtra("json", json)));
+        		.setContent(new Intent(this, InfoActivity.class).putExtra("json", json_str)));
         tabHost.addTab(tabHost.newTabSpec("video")
         		.setIndicator("Video")
-        		.setContent(new Intent(this, VideoActivity.class).putExtra("json", json)));
+        		.setContent(new Intent(this, VideoActivity.class).putExtra("json", json_str)));
         for (int i = 0; i < 2; i++){
         	tabHost.getTabWidget().getChildAt(i).getLayoutParams().height = 30;
         }
@@ -299,7 +301,7 @@ public class TabExplorer extends TabActivity implements MediaPlayer.OnPreparedLi
     private JSONArray getJSONArrayfromIntent(String type) {
 		JSONObject json = null;
 		try {
-			json = new JSONObject(getIntent().getExtras().getString("json"));
+			json = new JSONObject(this.json_str);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
