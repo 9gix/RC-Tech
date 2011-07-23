@@ -177,6 +177,7 @@ public class TabExplorer extends TabActivity implements MediaPlayer.OnPreparedLi
 			startActivity(new Intent(getApplicationContext(),Prefs.class));
 			return true;
 		case R.id.about_opt:
+			startActivity(new Intent(getApplicationContext(),AboutActivity.class));
 			break;
 		default:
 			return false;

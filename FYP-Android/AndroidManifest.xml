@@ -17,8 +17,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="AboutActivity" android:theme="@android:style/Theme.Dialog"></activity>
         <activity android:name="DashboardActivity"></activity>
-        <activity android:name=".DemoActivity"></activity>
         <activity android:name="MuseumRetriever"></activity>
         <activity android:name="TabExplorer" android:screenOrientation="portrait"></activity>
         <activity android:name="VideoActivity"></activity>
