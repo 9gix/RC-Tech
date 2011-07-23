@@ -6,16 +6,18 @@
 
    
     <LinearLayout android:layout_height="wrap_content" android:id="@+id/linearLayout1" android:layout_width="match_parent" android:orientation="vertical">
+        <Button android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Load" android:drawableBottom="@drawable/collection" android:id="@+id/btn_load"></Button>
 		<TableLayout android:layout_height="wrap_content" android:id="@+id/tableLayout1" android:layout_width="match_parent">
 	        <TableRow android:id="@+id/tableRow1" android:layout_height="wrap_content" android:gravity="center" android:layout_width="wrap_content">
-	            <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Scan" android:drawableBottom="@drawable/scan" android:id="@+id/btn_scan"></Button>
-	            <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Load" android:drawableBottom="@drawable/collection" android:id="@+id/btn_load"></Button>
-	            <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:drawableBottom="@drawable/history" android:id="@+id/btn_visited" android:text="Visited"></Button>
+	            <Button android:layout_margin="5dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Scan" android:drawableBottom="@drawable/scan" android:id="@+id/btn_scan"></Button>
+		        <Button android:layout_margin="5dip" android:layout_height="wrap_content" android:drawableBottom="@drawable/search" android:layout_width="wrap_content" android:text="Search" android:id="@+id/btn_search"></Button>
 	        </TableRow>
 		    <TableRow android:layout_height="wrap_content" android:id="@+id/tableRow2" android:layout_width="match_parent" android:gravity="center">
-		        <Button android:layout_height="wrap_content" android:drawableBottom="@drawable/search" android:layout_width="wrap_content" android:text="Search" android:id="@+id/btn_search"></Button>
-		        <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Camera" android:drawableBottom="@drawable/camera" android:id="@+id/btn_camera"></Button>
-		        <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:drawableBottom="@drawable/bookmark" android:text="Mark" android:id="@+id/btn_mark"></Button>
+	            <Button android:layout_margin="5dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:drawableBottom="@drawable/history" android:id="@+id/btn_visited" android:text="Visited"></Button>
+		        <Button android:layout_margin="5dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:drawableBottom="@drawable/bookmark" android:text="Mark" android:id="@+id/btn_mark"></Button>
+		    </TableRow>
+		    <TableRow android:layout_height="wrap_content" android:id="@+id/tableRow2" android:layout_width="match_parent" android:gravity="center">
+		        <Button android:layout_margin="5dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Camera" android:drawableBottom="@drawable/camera" android:id="@+id/btn_camera"></Button>	            
 		    </TableRow>
 	    </TableLayout>
     </LinearLayout>
