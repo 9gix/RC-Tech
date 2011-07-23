@@ -6,19 +6,16 @@
 	<PreferenceCategory android:key="audio_pref"
 		android:title="MediaPlayer">
 		<CheckBoxPreference android:key="autoplay"
-			android:title="Autoplay" android:summary="Automatically play audio when started" android:defaultValue="true"></CheckBoxPreference>
-		<CheckBoxPreference android:summary="Play next sound track on completed"
-			android:title="PlayNext" android:key="next" android:defaultValue="true"></CheckBoxPreference><CheckBoxPreference android:key="repeat" android:title="Repeat All" android:summary="Repeat playing when all sound track in the playlist has been played" android:dependency="next"></CheckBoxPreference><CheckBoxPreference android:title="Shuffle"
-			android:summary="Play sound track randomly, keep repeat after completion"
-			android:key="shuffle" android:dependency="repeat"></CheckBoxPreference>
+			android:title="Autoplay" android:defaultValue="true" android:summary="@string/pref_autoplay_summary"></CheckBoxPreference>
+		<CheckBoxPreference android:title="PlayNext" android:key="next" android:defaultValue="true" android:summary="@string/pref_next_summary"></CheckBoxPreference><CheckBoxPreference android:key="repeat" android:title="Repeat All" android:dependency="next" android:summary="@string/pref_repeat_summary"></CheckBoxPreference><CheckBoxPreference android:title="Shuffle"
+			android:key="shuffle" android:dependency="repeat" android:summary="@string/pref_shuffle_summary"></CheckBoxPreference>
 		
 			
 	</PreferenceCategory>
 	<PreferenceCategory android:key="general_pref"
 		android:title="General">
 		<CheckBoxPreference
-			android:summary="Allow you to go back to previous exhibit when you start a new scan"
-			android:key="stack" android:title="Stack Exhibit" android:defaultValue="true"></CheckBoxPreference>
+			android:key="stack" android:title="Stack Exhibit" android:defaultValue="true" android:summary="@string/pref_stack_summary"></CheckBoxPreference>
 	</PreferenceCategory>
 
 </PreferenceScreen>
