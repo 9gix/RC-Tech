@@ -1,8 +1,6 @@
 package com.rctech.museum;
 
-import static com.rctech.museum.Constants.QR;
-import static com.rctech.museum.Constants.TABLE_NAME;
-import static com.rctech.museum.Constants.TIME;
+import static com.rctech.museum.Constants.*;
 import static android.provider.BaseColumns._ID;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -19,20 +17,27 @@ public class MuseumData extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		db.execSQL("CREATE TABLE " + TABLE_NAME + " (" + _ID
+		db.execSQL("CREATE TABLE " + VISITED_TABLE + " (" + _ID
 				+ " INTEGER PRIMARY KEY AUTOINCREMENT, " + TIME + " INTEGER, "
 				+ QR + " TEXT NOT NULL);");
+		db.execSQL("CREATE TABLE " + MARKED_TABLE + " (" + _ID
+				+ " INTEGER PRIMARY KEY AUTOINCREMENT, " + TIME + " INTEGER, "
+				+ QR + " TEXT NOT NULL, "+ JSON +" TEXT NOT NULL);");
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		// TODO Auto-generated method stub
-		db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+		db.execSQL("DROP TABLE IF EXISTS " + VISITED_TABLE);
+		db.execSQL("DROP TABLE IF EXISTS " + MARKED_TABLE);
 		onCreate(db);
 	}
-	
-	public void clearData(SQLiteDatabase db){
-		db.execSQL("DELETE FROM "+TABLE_NAME);
+
+	public void clearVisited(SQLiteDatabase db) {
+		db.execSQL("DELETE FROM " + VISITED_TABLE);
 	}
 
+	public void clearMarked(SQLiteDatabase db){
+		db.execSQL("DELETE FROM " + MARKED_TABLE);
+	}
 }

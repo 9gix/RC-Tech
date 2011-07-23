@@ -1,7 +1,11 @@
 package com.rctech.museum;
 
+
+import static com.rctech.museum.Constants.*;
+
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,9 +19,11 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.app.TabActivity;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -42,13 +48,16 @@ public class TabExplorer extends TabActivity implements MediaPlayer.OnPreparedLi
 	private List audio_list;
 	private int nowPlaying = 0;
 	String json_str;
+	String qr;
+	MuseumData museumData;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.explorer);
-        json_str = getIntent().getAction();
-//        String json = getIntent().getStringExtra("json");
+//        json_str = getIntent().getAction();
+        json_str = getIntent().getStringExtra("json");
+        qr = getIntent().getStringExtra("qr");
         
         final TabHost tabHost = getTabHost();
 
@@ -156,6 +165,7 @@ public class TabExplorer extends TabActivity implements MediaPlayer.OnPreparedLi
 			}
 			return true;
 		case R.id.mark_opt:
+			bookmark();
 			return true;
 		case R.id.playlist_opt:
 			showDialog(DIALOG_PLAYLIST_ID);
@@ -172,6 +182,33 @@ public class TabExplorer extends TabActivity implements MediaPlayer.OnPreparedLi
 			return false;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	private void bookmark() {
+		
+		museumData = new MuseumData(this);
+		try{
+			addQR(qr);
+			Log.d("HELLO","SAVED");
+		}finally{
+			museumData.close();
+		}
+	}
+
+	private void addQR(String qr){
+		SQLiteDatabase db = museumData.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		Long t = System.currentTimeMillis();
+		Date date = new Date(t);
+		values.put(TIME, date.toLocaleString());
+		values.put(QR, qr2title(qr));
+		values.put(JSON, json_str);
+		db.insertOrThrow(MARKED_TABLE, null, values);
+	}
+
+	private String qr2title(String qr2) {
+		String title = qr.replace("_", " ");
+		return title;
 	}
 
 	@Override

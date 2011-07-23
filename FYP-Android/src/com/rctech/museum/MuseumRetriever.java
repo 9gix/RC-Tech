@@ -1,7 +1,7 @@
 package com.rctech.museum;
 
 import static com.rctech.museum.Constants.QR;
-import static com.rctech.museum.Constants.TABLE_NAME;
+import static com.rctech.museum.Constants.VISITED_TABLE;
 import static com.rctech.museum.Constants.TIME;
 
 import java.io.IOException;
@@ -34,12 +34,17 @@ public class MuseumRetriever extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		String qr = getIntent().getExtras().getString("qr");
+		String qr = getIntent().getExtras().getString("qr").replace(" ", "_");
 		String response;
 		if (isOnline()){
-			response = getData(qr).toString();
-//			setResult(RESULT_OK, (new Intent()).setAction(response));
-			startActivity(new Intent(getApplicationContext(),TabExplorer.class).setAction(response));
+			JSONObject jo = getData(qr);
+			if (jo == null){
+				showToast("Unknown QR Code");
+				finish();
+			}else{
+				response = jo.toString();
+				startActivity(new Intent(getApplicationContext(),TabExplorer.class).putExtra("qr", qr).putExtra("json", response));
+			}
 		}else{
 			showToast("No Internet Connectivity");
 			showToast("Stored in Visited History, Please load it when you have internet connectivity");
@@ -62,7 +67,7 @@ public class MuseumRetriever extends Activity {
 		Date date = new Date(t);
 		values.put(TIME, date.toLocaleString());
 		values.put(QR, qr2title(qr));
-		db.insertOrThrow(TABLE_NAME, null, values);
+		db.insertOrThrow(VISITED_TABLE, null, values);
 	}
 
 	private String qr2title(String qr) {

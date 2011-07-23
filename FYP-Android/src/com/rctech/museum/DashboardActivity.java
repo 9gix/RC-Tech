@@ -58,7 +58,7 @@ public class DashboardActivity extends Activity {
 
 		@Override
 		public void onClick(View v) {
-
+			startActivity(new Intent(getApplicationContext(),BookmarkActivity.class));
 		}
 	};
 	private OnClickListener sampleBtnListener = new OnClickListener() {
