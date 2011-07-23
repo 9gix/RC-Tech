@@ -1,10 +1,11 @@
 package com.rctech.museum;
 
-import static com.rctech.museum.Constants.TABLE_NAME;
 import static com.rctech.museum.Constants.QR;
+import static com.rctech.museum.Constants.TABLE_NAME;
 import static com.rctech.museum.Constants.TIME;
 
 import java.io.IOException;
+import java.util.Date;
 
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -57,9 +58,16 @@ public class MuseumRetriever extends Activity {
 	private void addQR(String qr){
 		SQLiteDatabase db = museumData.getWritableDatabase();
 		ContentValues values = new ContentValues();
-		values.put(TIME, System.currentTimeMillis());
-		values.put(QR, qr);
+		Long t = System.currentTimeMillis();
+		Date date = new Date(t);
+		values.put(TIME, date.toLocaleString());
+		values.put(QR, qr2title(qr));
 		db.insertOrThrow(TABLE_NAME, null, values);
+	}
+
+	private String qr2title(String qr) {
+		String title = qr.replace("_", " ");
+		return title;
 	}
 
 	private JSONObject getData(String qr) {
