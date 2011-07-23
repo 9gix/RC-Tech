@@ -7,5 +7,15 @@
     <string name="pref_repeat_summary">Repeat playing when all sound track in the playlist has been played</string>
     <string name="pref_shuffle_summary">Play sound track randomly, keep repeat after completion</string>
     <string name="pref_stack_summary">Allow you to go back to previous exhibit when you start a new scan</string>
-    <string name="pref_server_summary">Server URL where the QR Code Data located (Use Default)</string>
+    <string name="setting_server_summary">Server URL where the QR Code Data located (Use Default)</string>
+    <string-array name="servers">
+        <item>RC-Tech</item>
+        <item>Localhost</item>
+        <item>192.168.0.10</item>
+    </string-array>
+    <string-array name="url">
+        <item>http://rc-tech.appspot.com/</item>
+        <item>http://localhost/</item>
+        <item>http://192.168.0.10/</item>
+    </string-array>
 </resources>

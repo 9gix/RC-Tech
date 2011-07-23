@@ -17,13 +17,15 @@ public class Prefs extends PreferenceActivity{
 	private static final boolean OPT_SHUFFLE_DEF = false;
 	private static final String OPT_STACK = "stack";
 	private static final boolean OPT_STACK_DEF = true;
+	private static final String OPT_SERVER = "server";
+	private static final String OPT_SERVER_DEF = "http://rc-tech.appspot.com/";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		addPreferencesFromResource(R.xml.settings);
+		addPreferencesFromResource(getIntent().getExtras().getInt("xml"));
 	}
 	
 	public static boolean getAutoplay(Context context){
@@ -40,5 +42,8 @@ public class Prefs extends PreferenceActivity{
 	}
 	public static boolean getStack(Context context){
 		return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(OPT_STACK,OPT_STACK_DEF);
+	}
+	public static String getServer(Context context){
+		return PreferenceManager.getDefaultSharedPreferences(context).getString(OPT_SERVER,OPT_SERVER_DEF);
 	}
 }

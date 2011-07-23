@@ -7,6 +7,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -101,6 +104,38 @@ public class DashboardActivity extends Activity {
 		});
 
 		alert.show();
+	}
+	@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+    	// TODO Auto-generated method stub
+    	MenuInflater inflater = getMenuInflater();
+    	inflater.inflate(R.menu.dashboard, menu);
+    	return true;
+    }    
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		switch (item.getItemId()){
+		case R.id.scan_opt:
+			startActivity(new Intent(getApplicationContext(),ScannerActivity.class));
+			if (!Prefs.getStack(getApplicationContext())){
+				finish();
+			}
+			return true;
+		case R.id.setting_opt:
+			startActivity(new Intent(getApplicationContext(),Prefs.class).putExtra("xml", R.xml.settings));
+			return true;
+		case R.id.help_opt:
+			startActivity(new Intent(getApplicationContext(),AboutActivity.class));
+			break;
+		case R.id.about_opt:
+			startActivity(new Intent(getApplicationContext(),AboutActivity.class));
+			break;
+		default:
+			return false;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	void showToast(CharSequence msg) {

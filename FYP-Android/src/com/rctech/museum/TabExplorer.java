@@ -174,7 +174,7 @@ public class TabExplorer extends TabActivity implements MediaPlayer.OnPreparedLi
 			mc.show();
 			return true;
 		case R.id.setting_opt:
-			startActivity(new Intent(getApplicationContext(),Prefs.class));
+			startActivity(new Intent(getApplicationContext(),Prefs.class).putExtra("xml",R.xml.prefs));
 			return true;
 		case R.id.about_opt:
 			startActivity(new Intent(getApplicationContext(),AboutActivity.class));

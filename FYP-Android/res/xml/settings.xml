@@ -1,21 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-
-
-
-	<PreferenceCategory android:key="audio_pref"
-		android:title="MediaPlayer">
-		<CheckBoxPreference android:key="autoplay"
-			android:title="Autoplay" android:defaultValue="true" android:summary="@string/pref_autoplay_summary"></CheckBoxPreference>
-		<CheckBoxPreference android:title="PlayNext" android:key="next" android:defaultValue="true" android:summary="@string/pref_next_summary"></CheckBoxPreference><CheckBoxPreference android:key="repeat" android:title="Repeat All" android:dependency="next" android:summary="@string/pref_repeat_summary"></CheckBoxPreference><CheckBoxPreference android:title="Shuffle"
-			android:key="shuffle" android:dependency="repeat" android:summary="@string/pref_shuffle_summary"></CheckBoxPreference>
-		
-			
-	</PreferenceCategory>
-	<PreferenceCategory android:key="general_pref"
-		android:title="General">
-		<CheckBoxPreference
-			android:key="stack" android:title="Stack Exhibit" android:defaultValue="true" android:summary="@string/pref_stack_summary"></CheckBoxPreference>
+	<PreferenceCategory android:key="server_settings" android:title="Server">
+		<ListPreference android:title="Server URL" android:summary="@string/setting_server_summary" android:key="server" android:entries="@array/servers" android:entryValues="@array/url" android:defaultValue="http://rc-tech.appspot.com/"></ListPreference>
 	</PreferenceCategory>
 
 </PreferenceScreen>

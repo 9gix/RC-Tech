@@ -1,8 +1,8 @@
 package com.rctech.museum;
 
 import static com.rctech.museum.Constants.QR;
-import static com.rctech.museum.Constants.VISITED_TABLE;
 import static com.rctech.museum.Constants.TIME;
+import static com.rctech.museum.Constants.VISITED_TABLE;
 
 import java.io.IOException;
 import java.util.Date;
@@ -78,8 +78,9 @@ public class MuseumRetriever extends Activity {
 	private JSONObject getData(String qr) {
 		JSONObject response = null;
 		HttpClient httpClient = new DefaultHttpClient();
-		HttpGet httpGet = new HttpGet(
-				"http://rc-tech.appspot.com/museum/json_view/" + qr);
+		String url = Prefs.getServer(getApplicationContext()) +"museum/json_view/" + qr;
+		Log.d("HELLO",url);
+		HttpGet httpGet = new HttpGet(url);
 //				"http://localhost/museum/json_view/" + qr);
 		ResponseHandler<String> responseHandler = new BasicResponseHandler();
 		String responseBody;
