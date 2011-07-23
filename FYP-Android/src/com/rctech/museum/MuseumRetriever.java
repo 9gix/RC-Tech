@@ -39,7 +39,7 @@ public class MuseumRetriever extends Activity {
 		if (isOnline()){
 			JSONObject jo = getData(qr);
 			if (jo == null){
-				showToast("Unknown QR Code");
+				showToast("QR Code Not Found");
 				finish();
 			}else{
 				response = jo.toString();

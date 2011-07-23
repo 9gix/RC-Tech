@@ -10,17 +10,12 @@
 	        <TableRow android:id="@+id/tableRow1" android:layout_height="wrap_content" android:gravity="center" android:layout_width="wrap_content">
 	            <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Scan" android:drawableBottom="@drawable/scan" android:id="@+id/btn_scan"></Button>
 	            <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Load" android:drawableBottom="@drawable/collection" android:id="@+id/btn_load"></Button>
-	            <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:drawableBottom="@drawable/search" android:id="@+id/btn_visited" android:text="Visited"></Button>
+	            <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:drawableBottom="@drawable/history" android:id="@+id/btn_visited" android:text="Visited"></Button>
 	        </TableRow>
 		    <TableRow android:layout_height="wrap_content" android:id="@+id/tableRow2" android:layout_width="match_parent" android:gravity="center">
-		        <Button android:layout_height="wrap_content" android:drawableBottom="@drawable/search" android:layout_width="wrap_content" android:text="Sample" android:id="@+id/btn_sample"></Button>
+		        <Button android:layout_height="wrap_content" android:drawableBottom="@drawable/search" android:layout_width="wrap_content" android:text="Search" android:id="@+id/btn_search"></Button>
 		        <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Camera" android:drawableBottom="@drawable/camera" android:id="@+id/btn_camera"></Button>
-		        <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Share" android:drawableBottom="@drawable/share" android:id="@+id/btn_share"></Button>
-		    </TableRow>
-		    <TableRow android:layout_height="wrap_content" android:id="@+id/tableRow3" android:layout_width="match_parent" android:gravity="center">
 		        <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:drawableBottom="@drawable/bookmark" android:text="Mark" android:id="@+id/btn_mark"></Button>
-		    </TableRow>
-		    <TableRow android:layout_height="wrap_content" android:id="@+id/tableRow4" android:layout_width="match_parent" android:gravity="center">
 		    </TableRow>
 	    </TableLayout>
     </LinearLayout>
