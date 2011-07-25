@@ -21,15 +21,18 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.graphics.Path.FillType;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -39,87 +42,40 @@ public class InfoActivity extends Activity {
 	private WebView wv;
 	private String link;
 	private String title;
+	JSONArray jsonArr;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.info);
-		setWebView();
-		setSaveBtnListener();
-		
-		JSONArray jsonArr = getJSONArrayfromIntent("info");
+		jsonArr = getJSONArrayfromIntent("info");
 		buildSpinner(jsonArr);
+		setWebView();
+//		setLoadBtnListener();
+		
 	}
-
-
-	private void setSaveBtnListener() {
+	@Override
+	protected void onStart() {
 		// TODO Auto-generated method stub
-		Button saveBtn = (Button)findViewById(R.id.Save);
-		saveBtn.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				String html = downloadPage();
-				saveHtml(html);
-			}
-
-			private void saveHtml(String html) {
-				// TODO Auto-generated method stub
-				boolean mExternalStorageAvailable = false;
-				boolean mExternalStorageWriteable = false;
-				String state = Environment.getExternalStorageState();
-
-				if (Environment.MEDIA_MOUNTED.equals(state)) {
-				    // We can read and write the media
-				    mExternalStorageAvailable = mExternalStorageWriteable = true;
-				} else if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
-				    // We can only read the media
-				    mExternalStorageAvailable = true;
-				    mExternalStorageWriteable = false;
-				} else {
-				    // Something else is wrong. It may be one of many other states, but all we need
-				    //  to know is we can neither read nor write
-				    mExternalStorageAvailable = mExternalStorageWriteable = false;
-				}
-				File file = new File(getExternalFilesDir(null), title);
-				try {
-					FileOutputStream os = new FileOutputStream(file);
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-			}
-
-			private String downloadPage() {
-				HttpClient client = new DefaultHttpClient();
-				HttpGet request = new HttpGet(link);
-
-				String html = "";
-				InputStream in;
-				StringBuilder str = new StringBuilder();
-				try {
-					HttpResponse response = client.execute(request);
-					in = response.getEntity().getContent();
-					BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-					String line = null;
-					while((line = reader.readLine()) != null)
-					{
-					    str.append(line);
-					}
-					in.close();
-				} catch (IllegalStateException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				html = str.toString();
-				return html;
-			}
-		});
+		super.onStart();
+//		LinearLayout l1 = (LinearLayout)findViewById(R.id.linear1);
+//		
+//		l1.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+		
 	}
+
+//	private void setLoadBtnListener() {
+//		// TODO Auto-generated method stub
+//		Button loadBtn = (Button)findViewById(R.id.Load);
+//		loadBtn.setOnClickListener(new OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View v) {
+//				// TODO Auto-generated method stub
+//				loadWeb(link);
+//			}
+//
+//		});
+//	}
 
 
 	private void buildSpinner(JSONArray jsonArr) {
@@ -136,8 +92,8 @@ public class InfoActivity extends Activity {
                             AdapterView<?> parent, View view, int position, long id) {
 //                        showToast("Spinner1: position=" + position + " id=" + id);
                         Map map = (Map) parent.getItemAtPosition(position);
-                        String link = (String)map.get("link");
-                        showToast("Loading URL: " + link);
+                        link = (String)map.get("link");
+                        
                         loadWeb(link);
                     }
 
@@ -175,11 +131,13 @@ public class InfoActivity extends Activity {
 				return false;
 			}
 		});
+		
 	}
 
 	
 	private List getData(JSONArray jsonArr) {
 		List<Map> myData = new ArrayList<Map>();
+		addItem(myData,"Select Article","http://en.m.wikipedia.org/");
 		for (int i = 0; i < jsonArr.length(); i++){
 			JSONObject jo = null;
 			title = null;
@@ -204,6 +162,7 @@ public class InfoActivity extends Activity {
 	}
 	private void loadWeb(String url){
 		wv.loadUrl(url);
+		showToast("Loading URL: " + link);
 	}
     void showToast(CharSequence msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();

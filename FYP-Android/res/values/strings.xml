@@ -37,5 +37,6 @@
 	2. Select Playlist to see the available playable audio from the exhibit\n
 	3. Select MediaController to display the Audio Controller for 3 second\n
 	4. Select Setting, and configure based on your preference</string>
+    <string name="info_spinner_prompt">Select Article</string>
     
 </resources>
