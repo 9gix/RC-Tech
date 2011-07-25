@@ -44,9 +44,10 @@ public class BookmarkActivity extends ListActivity{
 		super.onListItemClick(l, v, position, id);
 		Cursor c = (Cursor) l.getItemAtPosition(position);
 		String json = c.getString(3);
+		String qr = c.getString(2);
 		if (isOnline()) {
 			startActivity(new Intent(getApplicationContext(),
-					TabExplorer.class).putExtra("json", json));
+					TabExplorer.class).putExtra("json", json).putExtra("qr", qr));
 			finish();
 		} else {
 			showToast("Unable to connect to internet");

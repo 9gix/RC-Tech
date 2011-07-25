@@ -27,8 +27,8 @@
         <activity android:name="InfoActivity" ></activity>
         <activity android:name="ScannerActivity"></activity>
         <activity android:name="CameraActivity"></activity>
-		<activity android:name="VisitedActivity"></activity>
-		<activity android:name="BookmarkActivity"></activity>
-		<activity android:name="Prefs"></activity>
+		<activity android:name="VisitedActivity" android:theme="@android:style/Theme.Dialog"></activity>
+		<activity android:name="BookmarkActivity" android:theme="@android:style/Theme.Dialog"></activity>
+		<activity android:name="Prefs" android:theme="@android:style/Theme.Dialog"></activity>
     </application>
 </manifest>

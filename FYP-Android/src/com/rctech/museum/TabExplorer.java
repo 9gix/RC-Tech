@@ -31,6 +31,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.MediaController;
 import android.widget.SimpleAdapter;
 import android.widget.TabHost;
@@ -58,6 +60,8 @@ public class TabExplorer extends TabActivity implements MediaPlayer.OnPreparedLi
 //        json_str = getIntent().getAction();
         json_str = getIntent().getStringExtra("json");
         qr = getIntent().getStringExtra("qr");
+        
+        setTitle(qr2title(qr));
         
         final TabHost tabHost = getTabHost();
 
@@ -186,12 +190,13 @@ public class TabExplorer extends TabActivity implements MediaPlayer.OnPreparedLi
 	}
 
 	private void bookmark() {
-		
+
 		museumData = new MuseumData(this);
 		try{
 			addQR(qr);
 			Log.d("HELLO","SAVED");
 		}finally{
+			showToast("Bookmark added");
 			museumData.close();
 		}
 	}
@@ -207,7 +212,7 @@ public class TabExplorer extends TabActivity implements MediaPlayer.OnPreparedLi
 		db.insertOrThrow(MARKED_TABLE, null, values);
 	}
 
-	private String qr2title(String qr2) {
+	private String qr2title(String qr) {
 		String title = qr.replace("_", " ");
 		return title;
 	}
@@ -409,4 +414,10 @@ public class TabExplorer extends TabActivity implements MediaPlayer.OnPreparedLi
 		}
 		
 	}
+	
+   void showToast(CharSequence msg) {
+       Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+   }
+
+
 }
