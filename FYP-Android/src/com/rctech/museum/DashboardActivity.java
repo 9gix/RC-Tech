@@ -127,7 +127,7 @@ public class DashboardActivity extends Activity {
 			startActivity(new Intent(getApplicationContext(),Prefs.class).putExtra("xml", R.xml.settings));
 			return true;
 		case R.id.help_opt:
-			startActivity(new Intent(getApplicationContext(),AboutActivity.class));
+			startActivity(new Intent(getApplicationContext(),HelpActivity.class));
 			break;
 		case R.id.about_opt:
 			startActivity(new Intent(getApplicationContext(),AboutActivity.class));

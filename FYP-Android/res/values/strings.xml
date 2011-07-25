@@ -18,4 +18,24 @@
         <item>http://localhost/</item>
         <item>http://192.168.0.10/</item>
     </string-array>
+    <string name="help_1_title">
+    
+    Quick Guide\n
+    1. In Dashboard main menu press Scan button\n
+    2. Scan QR Code which can be found near the Museum Exhibit\n
+    3. Wait For data being retrieved, and Done!!!\n
+	This page will be your Exhibit Explorer\n\n
+
+	Different ways to Retrieve Data\n
+	- Scan QR Code\n
+	- Load from Bookmark\n
+	- Load from Visited Exhibit\n
+	For Advance user: You can set your Server in the Dashboard Option\n\n
+
+	Manage Audio Setting\n
+	1. In Exhibit Explorer, Press Option button\n
+	2. Select Playlist to see the available playable audio from the exhibit\n
+	3. Select MediaController to display the Audio Controller for 3 second\n
+	4. Select Setting, and configure based on your preference</string>
+    
 </resources>
