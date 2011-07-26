@@ -7,6 +7,7 @@ import com.rctech.museum.helper.AboutActivity;
 import com.rctech.museum.helper.HelpActivity;
 import com.rctech.museum.retriever.MuseumRetriever;
 import com.rctech.museum.retriever.ScannerActivity;
+import com.rctech.museum.retriever.SearchActivity;
 import com.rctech.museum.storage.BookmarkActivity;
 import com.rctech.museum.storage.VisitedActivity;
 
@@ -64,7 +65,7 @@ public class DashboardActivity extends Activity {
 
 		@Override
 		public void onClick(View v) {
-			search();
+			startActivity(new Intent(getApplicationContext(),SearchActivity.class));
 		}
 	};
 	private OnClickListener loadBtnListener = new OnClickListener() {
@@ -88,31 +89,6 @@ public class DashboardActivity extends Activity {
 		}
 	};
 
-	private void search() {
-		AlertDialog.Builder alert = new AlertDialog.Builder(this);
-
-		alert.setTitle("Manual Input");
-		alert.setMessage("QR Code");
-
-		// Set an EditText view to get user input 
-		final EditText input = new EditText(this);
-		alert.setView(input);
-
-		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-		public void onClick(DialogInterface dialog, int whichButton) {
-		  String qr = input.getText().toString().toLowerCase();
-		  startActivity(new Intent(getApplicationContext(),MuseumRetriever.class).putExtra("qr", qr));
-		  }
-		});
-
-		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-		  public void onClick(DialogInterface dialog, int whichButton) {
-
-		  }
-		});
-
-		alert.show();
-	}
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
     	// TODO Auto-generated method stub

@@ -21,11 +21,12 @@
         <activity android:name=".helper.AboutActivity" android:theme="@android:style/Theme.Dialog"></activity>
         <activity android:name="DashboardActivity" android:theme="@android:style/Theme.Dialog"></activity>
         <activity android:name=".retriever.MuseumRetriever"></activity>
+        <activity android:name=".retriever.SearchActivity" android:theme="@android:style/Theme.Dialog"></activity>
+        <activity android:name=".retriever.ScannerActivity"></activity>
         <activity android:name="TabExplorer" android:screenOrientation="portrait" android:theme="@android:style/Theme.Dialog"></activity>
         <activity android:name="VideoActivity"></activity>
         <activity android:name="AudioActivity"></activity>
         <activity android:name="InfoActivity" ></activity>
-        <activity android:name=".retriever.ScannerActivity"></activity>
         <activity android:name=".feature.CameraActivity"></activity>
 		<activity android:name=".storage.VisitedActivity" android:theme="@android:style/Theme.Dialog"></activity>
 		<activity android:name=".storage.BookmarkActivity" android:theme="@android:style/Theme.Dialog"></activity>
