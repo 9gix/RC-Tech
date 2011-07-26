@@ -4,6 +4,6 @@
   android:orientation="vertical"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
-    <TextView android:layout_margin="30dip" android:text="@string/about" android:id="@+id/textView1" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+    <TextView android:layout_margin="20dip" android:text="@string/about" android:id="@+id/aboutUs" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
     
 </LinearLayout>
