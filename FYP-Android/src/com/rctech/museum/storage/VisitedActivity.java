@@ -1,7 +1,12 @@
-package com.rctech.museum;
+package com.rctech.museum.storage;
 
 import static android.provider.BaseColumns._ID;
-import static com.rctech.museum.Constants.*;
+import static com.rctech.museum.storage.Constants.QR;
+import static com.rctech.museum.storage.Constants.TIME;
+import static com.rctech.museum.storage.Constants.VISITED_TABLE;
+
+import com.rctech.museum.retriever.MuseumRetriever;
+
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +17,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListAdapter;
@@ -19,8 +25,8 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
-public class BookmarkActivity extends ListActivity{
-	private static final String[] FROM = { _ID, TIME, QR, JSON };
+public class VisitedActivity extends ListActivity {
+	private static final String[] FROM = { _ID, TIME, QR };
 	private static final String ORDER_BY = TIME + " DESC";
 	private MuseumData museumData;
 
@@ -30,9 +36,9 @@ public class BookmarkActivity extends ListActivity{
 		super.onCreate(savedInstanceState);
 		museumData = new MuseumData(this);
 		try {
-			Cursor cursor = getMarked();
-			showMarked(cursor);
-			Log.d("HELLO", "MARKED");
+			Cursor cursor = getVisited();
+			showVisited(cursor);
+			Log.d("HELLO", "VISITED");
 		} finally {
 			museumData.close();
 		}
@@ -43,28 +49,27 @@ public class BookmarkActivity extends ListActivity{
 		// TODO Auto-generated method stub
 		super.onListItemClick(l, v, position, id);
 		Cursor c = (Cursor) l.getItemAtPosition(position);
-		String json = c.getString(3);
 		String qr = c.getString(2);
 		if (isOnline()) {
 			startActivity(new Intent(getApplicationContext(),
-					TabExplorer.class).putExtra("json", json).putExtra("qr", qr));
+					MuseumRetriever.class).putExtra("qr", qr));
 			finish();
 		} else {
 			showToast("Unable to connect to internet");
 		}
 	}
 
-	private void showMarked(Cursor cursor) {
+	private void showVisited(Cursor cursor) {
 		ListAdapter adapter = new SimpleCursorAdapter(getApplicationContext(),
 				android.R.layout.two_line_list_item, cursor, new String[] {
-						QR, TIME }, new int[] { android.R.id.text1,
+						TIME, QR }, new int[] { android.R.id.text1,
 						android.R.id.text2 });
 		setListAdapter(adapter);
 	}
 
-	private Cursor getMarked() {
+	private Cursor getVisited() {
 		SQLiteDatabase db = museumData.getReadableDatabase();
-		Cursor c = db.query(MARKED_TABLE, FROM, null, null, null, null, ORDER_BY);
+		Cursor c = db.query(VISITED_TABLE, FROM, null, null, null, null, ORDER_BY);
 		startManagingCursor(c);
 		return c;
 	}
@@ -92,7 +97,7 @@ public class BookmarkActivity extends ListActivity{
 	@Override
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
 		SQLiteDatabase db = museumData.getWritableDatabase();
-		museumData.clearMarked(db);
+		museumData.clearVisited(db);
 		finish();
 		return super.onMenuItemSelected(featureId, item);
 	}

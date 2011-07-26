@@ -20,6 +20,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.rctech.museum.R;
+import com.rctech.museum.R.id;
+import com.rctech.museum.R.layout;
+
 import android.app.Activity;
 import android.graphics.Path.FillType;
 import android.os.Bundle;

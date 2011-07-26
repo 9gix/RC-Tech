@@ -1,7 +1,7 @@
 package com.rctech.museum;
 
 
-import static com.rctech.museum.Constants.*;
+import static com.rctech.museum.storage.Constants.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,6 +14,10 @@ import java.util.Random;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.rctech.museum.helper.AboutActivity;
+import com.rctech.museum.retriever.ScannerActivity;
+import com.rctech.museum.storage.MuseumData;
 
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;

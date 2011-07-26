@@ -1,4 +1,8 @@
-package com.rctech.museum;
+package com.rctech.museum.helper;
+
+import com.rctech.museum.R;
+import com.rctech.museum.R.id;
+import com.rctech.museum.R.layout;
 
 import android.app.Activity;
 import android.os.Bundle;

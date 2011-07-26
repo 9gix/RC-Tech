@@ -1,8 +1,8 @@
-package com.rctech.museum;
+package com.rctech.museum.retriever;
 
-import static com.rctech.museum.Constants.QR;
-import static com.rctech.museum.Constants.TIME;
-import static com.rctech.museum.Constants.VISITED_TABLE;
+import static com.rctech.museum.storage.Constants.QR;
+import static com.rctech.museum.storage.Constants.TIME;
+import static com.rctech.museum.storage.Constants.VISITED_TABLE;
 
 import java.io.IOException;
 import java.util.Date;
@@ -15,6 +15,10 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.rctech.museum.Prefs;
+import com.rctech.museum.TabExplorer;
+import com.rctech.museum.storage.MuseumData;
 
 import android.app.Activity;
 import android.content.ContentValues;

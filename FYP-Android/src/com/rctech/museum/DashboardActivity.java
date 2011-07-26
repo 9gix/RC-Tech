@@ -2,6 +2,14 @@ package com.rctech.museum;
 
 import org.json.JSONObject;
 
+import com.rctech.museum.feature.CameraActivity;
+import com.rctech.museum.helper.AboutActivity;
+import com.rctech.museum.helper.HelpActivity;
+import com.rctech.museum.retriever.MuseumRetriever;
+import com.rctech.museum.retriever.ScannerActivity;
+import com.rctech.museum.storage.BookmarkActivity;
+import com.rctech.museum.storage.VisitedActivity;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;

@@ -17,18 +17,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="HelpActivity" android:theme="@android:style/Theme.Dialog"></activity>
-        <activity android:name="AboutActivity" android:theme="@android:style/Theme.Dialog"></activity>
+        <activity android:name=".helper.HelpActivity" android:theme="@android:style/Theme.Dialog"></activity>
+        <activity android:name=".helper.AboutActivity" android:theme="@android:style/Theme.Dialog"></activity>
         <activity android:name="DashboardActivity" android:theme="@android:style/Theme.Dialog"></activity>
-        <activity android:name="MuseumRetriever"></activity>
+        <activity android:name=".retriever.MuseumRetriever"></activity>
         <activity android:name="TabExplorer" android:screenOrientation="portrait" android:theme="@android:style/Theme.Dialog"></activity>
         <activity android:name="VideoActivity"></activity>
         <activity android:name="AudioActivity"></activity>
         <activity android:name="InfoActivity" ></activity>
-        <activity android:name="ScannerActivity"></activity>
-        <activity android:name="CameraActivity"></activity>
-		<activity android:name="VisitedActivity" android:theme="@android:style/Theme.Dialog"></activity>
-		<activity android:name="BookmarkActivity" android:theme="@android:style/Theme.Dialog"></activity>
+        <activity android:name=".retriever.ScannerActivity"></activity>
+        <activity android:name=".feature.CameraActivity"></activity>
+		<activity android:name=".storage.VisitedActivity" android:theme="@android:style/Theme.Dialog"></activity>
+		<activity android:name=".storage.BookmarkActivity" android:theme="@android:style/Theme.Dialog"></activity>
 		<activity android:name="Prefs" android:theme="@android:style/Theme.Dialog"></activity>
     </application>
 </manifest>

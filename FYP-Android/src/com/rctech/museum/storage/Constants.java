@@ -1,4 +1,4 @@
-package com.rctech.museum;
+package com.rctech.museum.storage;
 import android.provider.BaseColumns;
 
 public class Constants implements BaseColumns{

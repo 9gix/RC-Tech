@@ -1,6 +1,6 @@
-package com.rctech.museum;
+package com.rctech.museum.storage;
 
-import static com.rctech.museum.Constants.*;
+import static com.rctech.museum.storage.Constants.*;
 import static android.provider.BaseColumns._ID;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
