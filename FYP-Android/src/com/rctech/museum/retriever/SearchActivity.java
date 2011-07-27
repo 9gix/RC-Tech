@@ -3,6 +3,7 @@ package com.rctech.museum.retriever;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
@@ -38,6 +39,14 @@ public class SearchActivity extends Activity{
 		  public void onClick(DialogInterface dialog, int whichButton) {
 			  finish();
 		  }
+		});
+		alert.setOnCancelListener(new OnCancelListener() {
+			
+			@Override
+			public void onCancel(DialogInterface dialog) {
+				// TODO Auto-generated method stub
+				finish();
+			}
 		});
 
 		alert.show();
