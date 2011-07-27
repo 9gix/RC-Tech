@@ -31,5 +31,12 @@
 		<activity android:name=".storage.VisitedActivity" android:theme="@android:style/Theme.Dialog"></activity>
 		<activity android:name=".storage.BookmarkActivity" android:theme="@android:style/Theme.Dialog"></activity>
 		<activity android:name="Prefs" android:theme="@android:style/Theme.Dialog"></activity>
+		<receiver android:name=".widget.PartnerWidget">
+            <meta-data android:name="android.appwidget.provider"
+                    android:resource="@xml/widget" />
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>
