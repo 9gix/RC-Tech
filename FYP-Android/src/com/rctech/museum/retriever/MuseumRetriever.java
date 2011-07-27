@@ -85,7 +85,6 @@ public class MuseumRetriever extends Activity {
 		String url = Prefs.getServer(getApplicationContext()) +"museum/json_view/" + qr;
 		Log.d("HELLO",url);
 		HttpGet httpGet = new HttpGet(url);
-//				"http://localhost/museum/json_view/" + qr);
 		ResponseHandler<String> responseHandler = new BasicResponseHandler();
 		String responseBody;
 
