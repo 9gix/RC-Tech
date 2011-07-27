@@ -28,6 +28,9 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.AudioFormat;
+import android.media.AudioManager;
+import android.media.AudioTrack;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -56,6 +59,7 @@ public class TabExplorer extends TabActivity implements MediaPlayer.OnPreparedLi
 	String json_str;
 	String qr;
 	MuseumData museumData;
+	private int mCurrentBufferPercentage;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -220,6 +224,14 @@ public class TabExplorer extends TabActivity implements MediaPlayer.OnPreparedLi
 		String title = qr.replace("_", " ");
 		return title;
 	}
+	
+	private MediaPlayer.OnBufferingUpdateListener mBufferingUpdateListener =
+			new MediaPlayer.OnBufferingUpdateListener() {
+		    	public void onBufferingUpdate(MediaPlayer mp, int percent) {
+		    		mCurrentBufferPercentage = percent;
+		        }
+		    };
+
 
 	@Override
 	public boolean canPause() {
@@ -242,7 +254,11 @@ public class TabExplorer extends TabActivity implements MediaPlayer.OnPreparedLi
 	@Override
 	public int getBufferPercentage() {
 		// TODO Auto-generated method stub
-		return 0;
+		if (mp != null) {
+            return mCurrentBufferPercentage;
+        }
+        return 0;
+
 	}
 
 	@Override
@@ -301,7 +317,9 @@ public class TabExplorer extends TabActivity implements MediaPlayer.OnPreparedLi
     private void setupMedia() {
 		// TODO Auto-generated method stub
     	mc = new MediaController(this);
+    	mp.setOnBufferingUpdateListener(mBufferingUpdateListener);
     	mp.setOnPreparedListener(this);
+    	mCurrentBufferPercentage = 0;
     	mc.setMediaPlayer(this);
     	mc.setAnchorView(findViewById(R.id.explorer_view));
     	mp.setOnCompletionListener(this);
@@ -329,21 +347,6 @@ public class TabExplorer extends TabActivity implements MediaPlayer.OnPreparedLi
 			e.printStackTrace();
 		}
 	}
-    
-    private void buildPlaylist(JSONArray arr){
-    	SimpleAdapter adapter = new SimpleAdapter(this, getData(arr),
-				android.R.layout.select_dialog_item, new String[] { "title" },
-				new int[] { android.R.id.text1 });
-    	builder = new Builder(getApplicationContext());
-    	builder.setAdapter(adapter, new OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-    }
     
     private JSONArray getJSONArrayfromIntent(String type) {
 		JSONObject json = null;
