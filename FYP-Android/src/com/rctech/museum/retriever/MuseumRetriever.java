@@ -39,27 +39,29 @@ public class MuseumRetriever extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		String qr = getIntent().getExtras().getString("qr").replace(" ", "_");
-		String response;
-		if (isOnline()){
-			JSONObject jo = getData(qr);
-			if (jo == null){
-				showToast("QR Code Not Found");
-				finish();
+		if (!qr.equals("")){
+			String response;
+			if (isOnline()){
+				JSONObject jo = getData(qr);
+				if (jo == null){
+					showToast("QR Code Not Found");
+					finish();
+				}else{
+					response = jo.toString();
+					startActivity(new Intent(getApplicationContext(),TabExplorer.class).putExtra("qr", qr).putExtra("json", response));
+				}
 			}else{
-				response = jo.toString();
-				startActivity(new Intent(getApplicationContext(),TabExplorer.class).putExtra("qr", qr).putExtra("json", response));
+				showToast("No Internet Connectivity");
+				setResult(RESULT_CANCELED);
 			}
-		}else{
-			showToast("No Internet Connectivity");
-			showToast("Stored in Visited History, Please load it when you have internet connectivity");
-			setResult(RESULT_CANCELED);
-		}
-		museumData = new MuseumData(this);
-		try{
-			addQR(qr);
-			Log.d("HELLO","SAVED");
-		}finally{
-			museumData.close();
+			museumData = new MuseumData(this);
+			try{
+				addQR(qr);
+				showToast("Stored in Visited History, Please load it when you have internet connectivity");
+				Log.d("HELLO","SAVED");
+			}finally{
+				museumData.close();
+			}
 		}
         finish();
 	}
