@@ -14,14 +14,14 @@ public class AboutActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.about);
-        TextView aboutUs;
-        aboutUs = (TextView)findViewById(R.id.aboutUs);
-        aboutUs.setText("This application is created by " +
-        		"Eugene, Felicia and Tran from Republic Polytechnic. " +
-        		"\n\nMuseum Partner is used as a guide, helping " +
-        		"to  enhance the user experience during your museum visits."
-        );
-        
-        aboutUs.setTextSize(18);
+//        TextView aboutUs;
+//        aboutUs = (TextView)findViewById(R.id.aboutUs);
+//        aboutUs.setText("This application is created by " +
+//        		"Eugene, Felicia and Tran from Republic Polytechnic. " +
+//        		"\n\nMuseum Partner is used as a guide, helping " +
+//        		"to  enhance the user experience during your museum visits."
+//        );
+//        
+//        aboutUs.setTextSize(18);
 	}
 }

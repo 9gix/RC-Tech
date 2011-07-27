@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Museum Partner</string>
-    <string name="about">Museum Partner is meant to substitute the tools that was used previously for Audio Device in Most Museum. This Apps allow user to listen to audio by scanning the QR Code Available in the museum. Visitor area also able to View any releavant information provided by the Museum regarding the exhibit from the QR code taken. This apps is created by RC-Tech Team from Republic Polytechnic as their Final Year Project. Thank you for using this Apps.</string>
+    <string name="about">
+		This application is created by
+   		Eugene, Felicia and Tran from Republic Polytechnic.
+    	\n\nMuseum Partner is used as a guide, helping 
+    	to  enhance the user experience during your museum visits.
+	</string>
     <string name="pref_autoplay_summary">Automatically play audio when started</string>
     <string name="pref_next_summary">Play next sound track on completed</string>
     <string name="pref_repeat_summary">Repeat playing when all sound track in the playlist has been played</string>
