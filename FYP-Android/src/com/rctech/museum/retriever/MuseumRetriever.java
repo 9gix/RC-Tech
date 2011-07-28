@@ -52,12 +52,11 @@ public class MuseumRetriever extends Activity {
 				}
 			}else{
 				showToast("No Internet Connectivity");
-				setResult(RESULT_CANCELED);
+				showToast("Saved in Your History");
 			}
 			museumData = new MuseumData(this);
 			try{
 				addQR(qr);
-				showToast("Stored in Visited History, Please load it when you have internet connectivity");
 				Log.d("HELLO","SAVED");
 			}finally{
 				museumData.close();
