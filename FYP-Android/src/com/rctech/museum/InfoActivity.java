@@ -61,26 +61,7 @@ public class InfoActivity extends Activity {
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
-//		LinearLayout l1 = (LinearLayout)findViewById(R.id.linear1);
-//		
-//		l1.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
-		
 	}
-
-//	private void setLoadBtnListener() {
-//		// TODO Auto-generated method stub
-//		Button loadBtn = (Button)findViewById(R.id.Load);
-//		loadBtn.setOnClickListener(new OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View v) {
-//				// TODO Auto-generated method stub
-//				loadWeb(link);
-//			}
-//
-//		});
-//	}
-
 
 	private void buildSpinner(JSONArray jsonArr) {
 		SimpleAdapter adapter = new SimpleAdapter(this, getData(jsonArr),
@@ -141,7 +122,7 @@ public class InfoActivity extends Activity {
 	
 	private List getData(JSONArray jsonArr) {
 		List<Map> myData = new ArrayList<Map>();
-		addItem(myData,"Select Article","http://en.m.wikipedia.org/");
+		addItem(myData,"Select Article","http://rc-tech.appspot.com/html5");
 		for (int i = 0; i < jsonArr.length(); i++){
 			JSONObject jo = null;
 			title = null;
