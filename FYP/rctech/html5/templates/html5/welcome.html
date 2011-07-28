@@ -1,0 +1,98 @@
+{% load media %}
+<!DOCTYPE html>
+<html>
+<head>
+<title>MuseumPartner</title>
+<meta charset="ISO-8859-1">
+ 	{% block css %}
+    	{% include_media 'main.css' %}
+    {% endblock %}
+
+    {% block preload_js %}
+    	{% include_media 'main.js' %}
+    {% endblock %}
+</head>
+<body>
+<header>
+	    <h1>Rc-Tech</h1>	
+    <header>
+		<div id="container">
+		<section style="width: 100%">
+			<article>
+				<header>
+					<h1>What's this?</h1>
+				</header>
+				<p>This is the default page for all exhibits</p>
+				<p>You can keep reading for more information below</p>
+				<p>Or Select the Other Article you wish to read</p>
+				<footer>
+					<h2>Short Guide</h2>
+				</footer>
+			</article>
+			
+			<article>
+				<header>
+					<h1>What can you find here?</h1>
+				</header>
+				<p>You'll find:</p>
+				<ul>
+					<li>Latest Updates</li>
+					<li>Little Helps & TroubleShoot</li>
+					<li>Developer Notes</li>
+				</ul>
+				<footer>
+					<h2>Thanks</h2>
+				</footer>
+			</article>
+			
+			<article>
+				<header>
+					<h1>Help & Troubleshoot</h1>
+				</header>
+				<b><p>How to Play Sound?</p></b>
+				<p>Press option button on your mobile</p>
+				<p>Select the title you wish to play inside the Playlist Menu</p>
+				<b><p>My Audio Doesn't Play</p></b>
+				<p>This issue is currently being fixed</p>
+				<p>This happened when the connectivity is very slow</p>
+				<b><p>Can't Find The Problem Listed Above</p></b>
+				<p>Please Feedback to us at <a href="http://museum-partner.blogspot.com">museum-partner.blogspot.com</a>
+				<footer>
+					<h2>Thanks</h2>
+				</footer>
+			</article>
+			<article>
+				<header>
+					<h1>Technology</h1>
+				</header>
+				<p>This Web Server is using some of the notable technology. Stated below</p>
+				<p>Special Thanks to:</p>
+				<ul>
+					<li><a href="http://www.djangoproject.com/">Django</a></li>
+					<li><a href="http://www.allbuttonspressed.com/">Django-nonrel</a></li>
+					<li><a href="http://appengine.google.com">Google App Engine</a></li>
+					<li><a href="http://www.w3.org/html/logo/">HTML5</a></li>
+				</ul>
+				<footer>
+					<h2>Thanks</h2>
+				</footer>
+			</article>
+			
+			<article>
+				<header>
+					<h1>Developer Team</h1>
+				</header>
+				<p>Our Team Consist of:</p>
+				<ul>
+					<li>Eugene</li>
+					<li>Felicia</li>
+					<li>Tran</li>
+				</ul>
+				<footer>
+					<h2>Developer Team</h2>
+				</footer>
+			</article>
+		</section>
+		</div>
+</body>
+</html>
