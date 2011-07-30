@@ -27,6 +27,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -38,7 +39,7 @@ public class MuseumRetriever extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		String qr = getIntent().getExtras().getString("qr").replace(" ", "_");
+		String qr = getIntent().getExtras().getString("qr");
 		if (!qr.equals("")){
 			String response;
 			if (isOnline()){
@@ -71,19 +72,14 @@ public class MuseumRetriever extends Activity {
 		Long t = System.currentTimeMillis();
 		Date date = new Date(t);
 		values.put(TIME, date.toLocaleString());
-		values.put(QR, qr2title(qr));
+		values.put(QR, qr);
 		db.insertOrThrow(VISITED_TABLE, null, values);
-	}
-
-	private String qr2title(String qr) {
-		String title = qr.replace("_", " ");
-		return title;
 	}
 
 	private JSONObject getData(String qr) {
 		JSONObject response = null;
 		HttpClient httpClient = new DefaultHttpClient();
-		String url = Prefs.getServer(getApplicationContext()) +"museum/json_view/" + qr;
+		String url = Prefs.getServer(getApplicationContext()) +"museum/json_view/" + Uri.encode(qr) + "/";
 		Log.d("HELLO",url);
 		HttpGet httpGet = new HttpGet(url);
 		ResponseHandler<String> responseHandler = new BasicResponseHandler();

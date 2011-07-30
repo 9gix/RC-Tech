@@ -69,7 +69,7 @@ public class TabExplorer extends TabActivity implements MediaPlayer.OnPreparedLi
         json_str = getIntent().getStringExtra("json");
         qr = getIntent().getStringExtra("qr");
         
-        setTitle(qr2title(qr));
+        setTitle(qr);
         
         final TabHost tabHost = getTabHost();
 
@@ -215,14 +215,9 @@ public class TabExplorer extends TabActivity implements MediaPlayer.OnPreparedLi
 		Long t = System.currentTimeMillis();
 		Date date = new Date(t);
 		values.put(TIME, date.toLocaleString());
-		values.put(QR, qr2title(qr));
+		values.put(QR, qr);
 		values.put(JSON, json_str);
 		db.insertOrThrow(MARKED_TABLE, null, values);
-	}
-
-	private String qr2title(String qr) {
-		String title = qr.replace("_", " ");
-		return title;
 	}
 	
 	private MediaPlayer.OnBufferingUpdateListener mBufferingUpdateListener =

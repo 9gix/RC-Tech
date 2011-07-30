@@ -65,7 +65,6 @@ public class VideoActivity extends Activity {
 		
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Spinner spinner = (Spinner)findViewById(R.id.video_spinner);
-        Log.d("HELLO",adapter.getItem(0).toString());
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(
                 new OnItemSelectedListener() {
