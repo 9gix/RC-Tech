@@ -54,7 +54,6 @@ public class InfoActivity extends Activity {
 		jsonArr = getJSONArrayfromIntent("info");
 		buildSpinner(jsonArr);
 		setWebView();
-//		setLoadBtnListener();
 		
 	}
 	@Override
@@ -75,10 +74,8 @@ public class InfoActivity extends Activity {
                 new OnItemSelectedListener() {
                     public void onItemSelected(
                             AdapterView<?> parent, View view, int position, long id) {
-//                        showToast("Spinner1: position=" + position + " id=" + id);
                         Map map = (Map) parent.getItemAtPosition(position);
                         link = (String)map.get("link");
-                        
                         loadWeb(link);
                     }
 

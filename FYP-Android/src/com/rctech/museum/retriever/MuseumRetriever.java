@@ -49,7 +49,7 @@ public class MuseumRetriever extends Activity {
 					finish();
 				}else{
 					response = jo.toString();
-					startActivity(new Intent(getApplicationContext(),TabExplorer.class).putExtra("qr", title).putExtra("json", response));
+					startActivity(new Intent(getApplicationContext(),TabExplorer.class).putExtra("title", title).putExtra("json", response));
 				}
 			}else{
 				showToast("No Internet Connectivity");
@@ -76,10 +76,10 @@ public class MuseumRetriever extends Activity {
 		db.insertOrThrow(VISITED_TABLE, null, values);
 	}
 
-	private JSONObject getData(String qr) {
+	private JSONObject getData(String title) {
 		JSONObject response = null;
 		HttpClient httpClient = new DefaultHttpClient();
-		String url = Prefs.getServer(getApplicationContext()) +"museum/json_view/" + Uri.encode(qr) + "/";
+		String url = Prefs.getServer(getApplicationContext()) +"museum/json_view/" + Uri.encode(title) + "/";
 		Log.d("HELLO",url);
 		HttpGet httpGet = new HttpGet(url);
 		ResponseHandler<String> responseHandler = new BasicResponseHandler();
