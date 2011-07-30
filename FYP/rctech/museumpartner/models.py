@@ -22,5 +22,3 @@ class Audio(models.Model):
     exhibit = models.ForeignKey(Exhibit)
     title = models.CharField(max_length=50)
     link = models.URLField()
-    
-    
