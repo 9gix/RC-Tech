@@ -80,16 +80,18 @@ function createQRButton(pDiv, lbl, code) {
 			var spaceRight = windowS[0] - btnPos[0] + sLeft;
 			
 			var bigCode = this.childNodes[0];
-			bigCode.style.top = (spaceBelow > spaceAbove) ? '23px' : '';
-			bigCode.style.bottom = (spaceBelow > spaceAbove) ? '' : '23px';
+			bigCode.style.top = (spaceBelow > spaceAbove) ? '0px' : '';
+			bigCode.style.bottom = (spaceBelow > spaceAbove) ? '' : '0px';
 			
 			bigCode.style.left = (spaceRight > spaceLeft) ? '0px' : '';
 			bigCode.style.right = (spaceRight > spaceLeft) ? '' : '1px';
 			
-			var growToHeight = Math.min((spaceBelow > spaceAbove) ? spaceBelow-75 : spaceAbove-60, 350);
+			var growToHeight = 200;
 			var growToWidth = Math.min((spaceRight > spaceLeft) ? spaceRight-30 : spaceLeft-30, 350);
 			this.growQRCodeToSize = Math.min(growToHeight, growToWidth);
-			
+			bigCode.onclick = function(){
+				window.location = 'http://chart.apis.google.com/chart?cht=qr&chs=500x500&chl=' + code;
+			};
 			bigCode.style.height = '0px';
 			bigCode.style.width = '0px';
 			bigCode.style.display = 'block';
@@ -102,6 +104,7 @@ function createQRButton(pDiv, lbl, code) {
 		this.closeQRCodeTimeout = setTimeout('closeQRCodeNOW(' + timeId + ')', 100);
 	};
 	pDiv.closeQRCodeTimeout = null;
+
 
 	var img = document.createElement('img');
 	img.src = 'http://chart.apis.google.com/chart?cht=qr&chs=350x350&chl=' + code;
@@ -117,6 +120,7 @@ function createQRButton(pDiv, lbl, code) {
 	div.style.background = 'url(data:image/gif;base64,R0lGODlhFQAVAKIFAO7u7ru7u+Pj4/n5+QAAAP///wAAAAAAACH5BAEAAAUALAAAAAAVABUAAAN3WLHc/iNGMmilVpJw8awfIVac6I0Whpao5pqkFJqevNHtiW9yP/aSAK2TOoGELyCORAAAcE+TM9oMRJ9OKZb2FF61zesUEBCYzwICGme+sUXt9FpQnqPlcjU9DVfT+HhmZSZ5emeEaoN9fGyAe3N+fox6Cg+WDwkAOw==) no-repeat';
 	pDiv.appendChild(div);
 	
+	
 	if (lbl != '') {
 		var div = document.createElement('div');
 		div.style.height = '17px';
@@ -125,7 +129,9 @@ function createQRButton(pDiv, lbl, code) {
 		div.style.whiteSpace = 'nowrap';
 		div.style.background = 'url(data:image/gif;base64,R0lGODlhAQAVAJEAALu7u+7u7uPj4/n5+SH5BAAAAAAALAAAAAABABUAAAIHxI4YK+0CCgA7) repeat-x';
 		div.innerHTML = lbl;
-		
+		div.onclick = function(){
+			window.location = "json_view/"+code;
+		};
 		pDiv.appendChild(div);
 		pDiv.style.width = (div.offsetWidth + 23) + 'px';
 	}
@@ -146,6 +152,7 @@ function enlargeQRCode(img) {
 	if (parseInt(img.style.height) < img.parentNode.growQRCodeToSize) {
 		setTimeout(function() { enlargeQRCode(img) }, 10);
 	}
+
 }
 function closeQRCodeNOW(timeId) {
 	var img = document.getElementById('qrCodeBtnImg' + timeId)

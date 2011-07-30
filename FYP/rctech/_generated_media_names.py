@@ -1,1 +1,1 @@
-NAMES = {'main.css': u'main-5f1b45b2dafc730cc2f74b0ecaa2578ba68a45cb.css', 'main.js': u'main-bb0b25b4bd2ee3423744fb50f220cc77afafed51.js'}
+NAMES = {'main.css': u'main-5f1b45b2dafc730cc2f74b0ecaa2578ba68a45cb.css', 'main.js': u'main-6f26e2ab4681fa213be6a3aa1711fc52300d96b9.js'}

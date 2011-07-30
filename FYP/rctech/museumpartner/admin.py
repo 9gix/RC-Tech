@@ -12,8 +12,8 @@ class InfoInline(admin.TabularInline):
     model = Info
     
 class ExhibitAdmin(admin.ModelAdmin):
-    fields = ('qrcode','name')
-    list_display = ('qrcode','name','date')
+    fields = ('name',)
+    list_display = ('name','date')
     inlines = [
         InfoInline, VideoInline, AudioInline,
     ]

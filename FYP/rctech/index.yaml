@@ -42,10 +42,20 @@ indexes:
   - name: order
   - name: title
 
+- kind: museumpartner_audio
+  properties:
+  - name: exhibit_id
+  - name: title
+
 - kind: museumpartner_exhibit
   properties:
   - name: __key__
     direction: desc
+
+- kind: museumpartner_info
+  properties:
+  - name: exhibit_id
+  - name: title
 
 - kind: museumpartner_info
   properties:
