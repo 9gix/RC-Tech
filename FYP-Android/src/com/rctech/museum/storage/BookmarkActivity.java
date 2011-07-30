@@ -23,7 +23,7 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 public class BookmarkActivity extends ListActivity{
-	private static final String[] FROM = { _ID, TIME, QR, JSON };
+	private static final String[] FROM = { _ID, TIME, TITLE, JSON };
 	private static final String ORDER_BY = TIME + " DESC";
 	private MuseumData museumData;
 
@@ -47,10 +47,10 @@ public class BookmarkActivity extends ListActivity{
 		super.onListItemClick(l, v, position, id);
 		Cursor c = (Cursor) l.getItemAtPosition(position);
 		String json = c.getString(3);
-		String qr = c.getString(2);
+		String title = c.getString(2);
 		if (isOnline()) {
 			startActivity(new Intent(getApplicationContext(),
-					TabExplorer.class).putExtra("json", json).putExtra("qr", qr));
+					TabExplorer.class).putExtra("json", json).putExtra("title", title));
 			finish();
 		} else {
 			showToast("Unable to connect to internet");
@@ -60,7 +60,7 @@ public class BookmarkActivity extends ListActivity{
 	private void showMarked(Cursor cursor) {
 		ListAdapter adapter = new SimpleCursorAdapter(getApplicationContext(),
 				android.R.layout.two_line_list_item, cursor, new String[] {
-						QR, TIME }, new int[] { android.R.id.text1,
+						TITLE, TIME }, new int[] { android.R.id.text1,
 						android.R.id.text2 });
 		setListAdapter(adapter);
 	}

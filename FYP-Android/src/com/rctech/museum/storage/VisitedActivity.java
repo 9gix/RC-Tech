@@ -1,7 +1,7 @@
 package com.rctech.museum.storage;
 
 import static android.provider.BaseColumns._ID;
-import static com.rctech.museum.storage.Constants.QR;
+import static com.rctech.museum.storage.Constants.TITLE;
 import static com.rctech.museum.storage.Constants.TIME;
 import static com.rctech.museum.storage.Constants.VISITED_TABLE;
 
@@ -26,7 +26,7 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 public class VisitedActivity extends ListActivity {
-	private static final String[] FROM = { _ID, TIME, QR };
+	private static final String[] FROM = { _ID, TIME, TITLE };
 	private static final String ORDER_BY = TIME + " DESC";
 	private MuseumData museumData;
 
@@ -49,10 +49,10 @@ public class VisitedActivity extends ListActivity {
 		// TODO Auto-generated method stub
 		super.onListItemClick(l, v, position, id);
 		Cursor c = (Cursor) l.getItemAtPosition(position);
-		String qr = c.getString(2);
+		String title = c.getString(2);
 		if (isOnline()) {
 			startActivity(new Intent(getApplicationContext(),
-					MuseumRetriever.class).putExtra("qr", qr));
+					MuseumRetriever.class).putExtra("title", title));
 			finish();
 		} else {
 			showToast("Unable to connect to internet");
@@ -62,7 +62,7 @@ public class VisitedActivity extends ListActivity {
 	private void showVisited(Cursor cursor) {
 		ListAdapter adapter = new SimpleCursorAdapter(getApplicationContext(),
 				android.R.layout.two_line_list_item, cursor, new String[] {
-						TIME, QR }, new int[] { android.R.id.text1,
+						TIME, TITLE }, new int[] { android.R.id.text1,
 						android.R.id.text2 });
 		setListAdapter(adapter);
 	}

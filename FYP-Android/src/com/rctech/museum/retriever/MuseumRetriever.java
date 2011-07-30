@@ -1,6 +1,6 @@
 package com.rctech.museum.retriever;
 
-import static com.rctech.museum.storage.Constants.QR;
+import static com.rctech.museum.storage.Constants.TITLE;
 import static com.rctech.museum.storage.Constants.TIME;
 import static com.rctech.museum.storage.Constants.VISITED_TABLE;
 
@@ -39,17 +39,17 @@ public class MuseumRetriever extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		String qr = getIntent().getExtras().getString("qr");
-		if (!qr.equals("")){
+		String title = getIntent().getExtras().getString("title");
+		if (!title.equals("")){
 			String response;
 			if (isOnline()){
-				JSONObject jo = getData(qr);
+				JSONObject jo = getData(title);
 				if (jo == null){
 					showToast("QR Code Not Found");
 					finish();
 				}else{
 					response = jo.toString();
-					startActivity(new Intent(getApplicationContext(),TabExplorer.class).putExtra("qr", qr).putExtra("json", response));
+					startActivity(new Intent(getApplicationContext(),TabExplorer.class).putExtra("qr", title).putExtra("json", response));
 				}
 			}else{
 				showToast("No Internet Connectivity");
@@ -57,7 +57,7 @@ public class MuseumRetriever extends Activity {
 			}
 			museumData = new MuseumData(this);
 			try{
-				addQR(qr);
+				addQR(title);
 				Log.d("HELLO","SAVED");
 			}finally{
 				museumData.close();
@@ -72,7 +72,7 @@ public class MuseumRetriever extends Activity {
 		Long t = System.currentTimeMillis();
 		Date date = new Date(t);
 		values.put(TIME, date.toLocaleString());
-		values.put(QR, qr);
+		values.put(TITLE, qr);
 		db.insertOrThrow(VISITED_TABLE, null, values);
 	}
 

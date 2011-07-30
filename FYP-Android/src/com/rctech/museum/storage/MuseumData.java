@@ -19,10 +19,10 @@ public class MuseumData extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL("CREATE TABLE " + VISITED_TABLE + " (" + _ID
 				+ " INTEGER PRIMARY KEY AUTOINCREMENT, " + TIME + " INTEGER, "
-				+ QR + " TEXT NOT NULL);");
+				+ TITLE + " TEXT NOT NULL);");
 		db.execSQL("CREATE TABLE " + MARKED_TABLE + " (" + _ID
 				+ " INTEGER PRIMARY KEY AUTOINCREMENT, " + TIME + " INTEGER, "
-				+ QR + " TEXT NOT NULL, "+ JSON +" TEXT NOT NULL);");
+				+ TITLE + " TEXT NOT NULL, "+ JSON +" TEXT NOT NULL);");
 	}
 
 	@Override

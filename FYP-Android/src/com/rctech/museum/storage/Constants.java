@@ -5,7 +5,7 @@ public class Constants implements BaseColumns{
 
 	// global constant
 	public static final String TIME = "time";
-	public static final String QR = "qr";
+	public static final String TITLE = "title";
 	
 	// visited table constant
 	public static final String VISITED_TABLE = "visited";

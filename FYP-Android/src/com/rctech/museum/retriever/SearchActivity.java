@@ -29,8 +29,8 @@ public class SearchActivity extends Activity{
 
 		alert.setPositiveButton("Search", new DialogInterface.OnClickListener() {
 		public void onClick(DialogInterface dialog, int whichButton) {
-		  String qr = input.getText().toString().toLowerCase();
-		  startActivity(new Intent(getApplicationContext(),MuseumRetriever.class).putExtra("qr", qr));
+		  String title = input.getText().toString().toLowerCase();
+		  startActivity(new Intent(getApplicationContext(),MuseumRetriever.class).putExtra("title", title));
 		  finish();
 		  }
 		});

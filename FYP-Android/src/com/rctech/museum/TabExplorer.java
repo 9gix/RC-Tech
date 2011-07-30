@@ -57,7 +57,7 @@ public class TabExplorer extends TabActivity implements MediaPlayer.OnPreparedLi
 	private List audio_list;
 	private int nowPlaying = 0;
 	String json_str;
-	String qr;
+	String title;
 	MuseumData museumData;
 	private int mCurrentBufferPercentage;
 	
@@ -67,9 +67,9 @@ public class TabExplorer extends TabActivity implements MediaPlayer.OnPreparedLi
         setContentView(R.layout.explorer);
 //        json_str = getIntent().getAction();
         json_str = getIntent().getStringExtra("json");
-        qr = getIntent().getStringExtra("qr");
+        title = getIntent().getStringExtra("title");
         
-        setTitle(qr);
+        setTitle(title);
         
         final TabHost tabHost = getTabHost();
 
@@ -201,7 +201,7 @@ public class TabExplorer extends TabActivity implements MediaPlayer.OnPreparedLi
 
 		museumData = new MuseumData(this);
 		try{
-			addQR(qr);
+			addQR(title);
 			Log.d("HELLO","SAVED");
 		}finally{
 			showToast("Bookmark added");
@@ -215,7 +215,7 @@ public class TabExplorer extends TabActivity implements MediaPlayer.OnPreparedLi
 		Long t = System.currentTimeMillis();
 		Date date = new Date(t);
 		values.put(TIME, date.toLocaleString());
-		values.put(QR, qr);
+		values.put(TITLE, qr);
 		values.put(JSON, json_str);
 		db.insertOrThrow(MARKED_TABLE, null, values);
 	}
