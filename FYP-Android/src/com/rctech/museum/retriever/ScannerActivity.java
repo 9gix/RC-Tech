@@ -23,13 +23,10 @@ public class ScannerActivity extends Activity {
 
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		if (resultCode == RESULT_OK) {
-			String qr = intent.getStringExtra("SCAN_RESULT");
+			String title = intent.getStringExtra("SCAN_RESULT");
 			startActivity(new Intent(getApplicationContext(),
-					MuseumRetriever.class).putExtra("title", qr));
-			finish();
-		} else if (resultCode == RESULT_CANCELED) {
-			Log.d("HELLO", "RESULT CANCEL");
-			finish();
+					MuseumRetriever.class).putExtra("title", title));
 		}
+		finish();
 	}
 }
