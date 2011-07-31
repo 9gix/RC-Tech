@@ -28,5 +28,5 @@ def json_view(request,name):
     video_list = []
     for video in video_objects:
         video_list.append({'title':video.title,'link':video.link})
-    return HttpResponse(json.dumps({'name':exhibit.name,'audio':audio_list,'video':video_list,'info':info_list},sort_keys=False), mimetype="application/json")
+    return HttpResponse(json.dumps({'name':exhibit.name,'audio':audio_list,'video':video_list,'info':info_list},sort_keys=False,indent=4), mimetype="application/json")
 
